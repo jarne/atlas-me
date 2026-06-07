@@ -14,6 +14,7 @@ struct TravelListView: View {
     @Query private var visitedCountries: [VisitedCountry]
     
     @State private var isShowingAddSheet = false
+    @State private var isShowingImportSheet = false
     @State private var searchText = ""
     @State private var sortOption: SortOption = .dateNewest
     
@@ -93,6 +94,14 @@ struct TravelListView: View {
             .navigationTitle("My Travels")
             .searchable(text: $searchText, prompt: "Search visited countries...")
             .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button {
+                        isShowingImportSheet = true
+                    } label: {
+                        Image(systemName: "photo.badge.plus")
+                    }
+                }
+                
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Menu {
                         Picker("Sort By", selection: $sortOption) {
@@ -116,6 +125,9 @@ struct TravelListView: View {
             }
             .sheet(isPresented: $isShowingAddSheet) {
                 AddCountryView()
+            }
+            .sheet(isPresented: $isShowingImportSheet) {
+                PhotoImportView()
             }
         }
     }

@@ -32,6 +32,63 @@ class CountryBorderLoader: ObservableObject {
         }
     }
     
+    nonisolated func loadBordersDict() -> [String: [MKPolygon]] {
+        return parseGeoJSON()
+    }
+    
+    nonisolated static func countryCode(for coordinate: CLLocationCoordinate2D, in borders: [String: [MKPolygon]]) -> String? {
+        for (alpha2, polygons) in borders {
+            for polygon in polygons {
+                if contains(coordinate: coordinate, polygon: polygon) {
+                    return alpha2
+                }
+            }
+        }
+        return nil
+    }
+    
+    nonisolated private static func contains(coordinate: CLLocationCoordinate2D, polygon: MKPolygon) -> Bool {
+        let mapPoint = MKMapPoint(coordinate)
+        if !polygon.boundingMapRect.contains(mapPoint) {
+            return false
+        }
+        
+        var coords = [CLLocationCoordinate2D](repeating: CLLocationCoordinate2D(), count: polygon.pointCount)
+        polygon.getCoordinates(&coords, range: NSRange(location: 0, length: polygon.pointCount))
+        
+        guard isPointInPolygon(coordinate, vertices: coords) else {
+            return false
+        }
+        
+        if let interiorPolygons = polygon.interiorPolygons {
+            for hole in interiorPolygons {
+                if contains(coordinate: coordinate, polygon: hole) {
+                    return false
+                }
+            }
+        }
+        
+        return true
+    }
+    
+    nonisolated private static func isPointInPolygon(_ point: CLLocationCoordinate2D, vertices: [CLLocationCoordinate2D]) -> Bool {
+        guard vertices.count > 2 else { return false }
+        var inside = false
+        var j = vertices.count - 1
+        for i in 0..<vertices.count {
+            let pi = vertices[i]
+            let pj = vertices[j]
+            
+            let intersect = ((pi.longitude > point.longitude) != (pj.longitude > point.longitude))
+                && (point.latitude < (pj.latitude - pi.latitude) * (point.longitude - pi.longitude) / (pj.longitude - pi.longitude) + pi.latitude)
+            if intersect {
+                inside = !inside
+            }
+            j = i
+        }
+        return inside
+    }
+    
     nonisolated private func parseGeoJSON() -> [String: [MKPolygon]] {
         guard let url = Bundle.main.url(forResource: "countries", withExtension: "geojson"),
               let data = try? Data(contentsOf: url) else {
@@ -84,54 +141,4 @@ class CountryBorderLoader: ObservableObject {
         
         return MKPolygon(coordinates: exteriorCoordinates, count: exteriorCoordinates.count, interiorPolygons: interiorPolygons.isEmpty ? nil : interiorPolygons)
     }
-}
-
-// MARK: - GeoJSON Decodable Structs
-
-private struct GeoJSONFeatureCollection: Decodable {
-    let type: String
-    let features: [GeoJSONFeature]
-}
-
-private struct GeoJSONFeature: Decodable {
-    let type: String
-    let properties: GeoJSONProperties
-    let geometry: GeoJSONGeometry
-}
-
-private struct GeoJSONProperties: Decodable {
-    let iso_a2: String?
-    let iso_a3: String?
-    let name: String?
-}
-
-private struct GeoJSONGeometry: Decodable {
-    let type: String
-    let coordinates: GeoJSONCoordinates
-    
-    enum CodingKeys: String, CodingKey {
-        case type
-        case coordinates
-    }
-    
-    init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        type = try container.decode(String.self, forKey: .type)
-        
-        switch type {
-        case "Polygon":
-            let coords = try container.decode([[[Double]]].self, forKey: .coordinates)
-            coordinates = .polygon(coords)
-        case "MultiPolygon":
-            let coords = try container.decode([[[[Double]]]].self, forKey: .coordinates)
-            coordinates = .multiPolygon(coords)
-        default:
-            throw DecodingError.dataCorruptedError(forKey: .coordinates, in: container, debugDescription: "Unknown geometry type")
-        }
-    }
-}
-
-private enum GeoJSONCoordinates {
-    case polygon([[[Double]]])
-    case multiPolygon([[[[Double]]]])
 }
