@@ -1,6 +1,6 @@
 //
 //  PhotoImportManager.swift
-//  CountriesIveBeen
+//  AtlasMe
 //
 //  Manages importing visited countries automatically by scanning the user's
 //  photo library for geotagged images, reverse geocoding them offline,

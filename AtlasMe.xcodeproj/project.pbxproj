@@ -7,13 +7,13 @@
 	objects = {
 
 /* Begin PBXFileReference section */
-		8BDE8EF32FD09D4C009C85F3 /* CountriesIveBeen.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CountriesIveBeen.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		8BDE8EF32FD09D4C009C85F3 /* AtlasMe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AtlasMe.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		8BDE8EF52FD09D4C009C85F3 /* CountriesIveBeen */ = {
+		8BDE8EF52FD09D4C009C85F3 /* AtlasMe */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = CountriesIveBeen;
+			path = AtlasMe;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -32,7 +32,7 @@
 		8BDE8EEA2FD09D4C009C85F3 = {
 			isa = PBXGroup;
 			children = (
-				8BDE8EF52FD09D4C009C85F3 /* CountriesIveBeen */,
+				8BDE8EF52FD09D4C009C85F3 /* AtlasMe */,
 				8BDE8EF42FD09D4C009C85F3 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -40,7 +40,7 @@
 		8BDE8EF42FD09D4C009C85F3 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				8BDE8EF32FD09D4C009C85F3 /* CountriesIveBeen.app */,
+				8BDE8EF32FD09D4C009C85F3 /* AtlasMe.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -48,9 +48,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		8BDE8EF22FD09D4C009C85F3 /* CountriesIveBeen */ = {
+		8BDE8EF22FD09D4C009C85F3 /* AtlasMe */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 8BDE8F002FD09D4D009C85F3 /* Build configuration list for PBXNativeTarget "CountriesIveBeen" */;
+			buildConfigurationList = 8BDE8F002FD09D4D009C85F3 /* Build configuration list for PBXNativeTarget "AtlasMe" */;
 			buildPhases = (
 				8BDE8EEF2FD09D4C009C85F3 /* Sources */,
 				8BDE8EF02FD09D4C009C85F3 /* Frameworks */,
@@ -61,13 +61,13 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				8BDE8EF52FD09D4C009C85F3 /* CountriesIveBeen */,
+				8BDE8EF52FD09D4C009C85F3 /* AtlasMe */,
 			);
-			name = CountriesIveBeen;
+			name = AtlasMe;
 			packageProductDependencies = (
 			);
 			productName = CountriesIveBeen;
-			productReference = 8BDE8EF32FD09D4C009C85F3 /* CountriesIveBeen.app */;
+			productReference = 8BDE8EF32FD09D4C009C85F3 /* AtlasMe.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -85,7 +85,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 8BDE8EEE2FD09D4C009C85F3 /* Build configuration list for PBXProject "CountriesIveBeen" */;
+			buildConfigurationList = 8BDE8EEE2FD09D4C009C85F3 /* Build configuration list for PBXProject "AtlasMe" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -99,7 +99,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				8BDE8EF22FD09D4C009C85F3 /* CountriesIveBeen */,
+				8BDE8EF22FD09D4C009C85F3 /* AtlasMe */,
 			);
 		};
 /* End PBXProject section */
@@ -252,21 +252,24 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = EPU344CT68;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "Atlas & Me";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.travel";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "We need access to your photo library to read photo locations and date information to import your visited countries.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = net.yellowlake.CountriesIveBeen;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
@@ -285,21 +288,24 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = EPU344CT68;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "Atlas & Me";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.travel";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "We need access to your photo library to read photo locations and date information to import your visited countries.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = net.yellowlake.CountriesIveBeen;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
@@ -315,7 +321,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		8BDE8EEE2FD09D4C009C85F3 /* Build configuration list for PBXProject "CountriesIveBeen" */ = {
+		8BDE8EEE2FD09D4C009C85F3 /* Build configuration list for PBXProject "AtlasMe" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				8BDE8EFE2FD09D4D009C85F3 /* Debug */,
@@ -324,7 +330,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		8BDE8F002FD09D4D009C85F3 /* Build configuration list for PBXNativeTarget "CountriesIveBeen" */ = {
+		8BDE8F002FD09D4D009C85F3 /* Build configuration list for PBXNativeTarget "AtlasMe" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				8BDE8F012FD09D4D009C85F3 /* Debug */,

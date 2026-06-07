@@ -1,6 +1,6 @@
 //
 //  CountryBorderLoader.swift
-//  CountriesIveBeen
+//  AtlasMe
 //
 //  This file handles the loading and parsing of the countries.geojson file, converting
 //  the geographic data into MapKit MKPolygons for rendering country borders.

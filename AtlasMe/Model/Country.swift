@@ -1,6 +1,6 @@
 //
 //  Country.swift
-//  CountriesIveBeen
+//  AtlasMe
 //
 //  Defines the Country model which represents static country information, such as ISO codes,
 //  geographic coordinates, and a utility to generate the corresponding flag emoji.

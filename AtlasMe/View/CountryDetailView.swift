@@ -1,6 +1,6 @@
 //
 //  CountryDetailView.swift
-//  CountriesIveBeen
+//  AtlasMe
 //
 //  Displays detailed information about a visited country, including an interactive map of its location.
 //  It allows users to edit their visit date and travel notes, or delete the visit entirely.

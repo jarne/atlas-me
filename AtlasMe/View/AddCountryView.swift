@@ -1,6 +1,6 @@
 //
 //  AddCountryView.swift
-//  CountriesIveBeen
+//  AtlasMe
 //
 //  Provides views that allow the user to search through unvisited countries, enter details
 //  such as date of visit and notes, and add them to their list of visited countries.

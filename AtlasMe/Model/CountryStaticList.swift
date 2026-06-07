@@ -1,6 +1,6 @@
 //
 //  CountryStaticList.swift
-//  CountriesIveBeen
+//  AtlasMe
 //
 //  An extension on Country that provides a static list of all countries in the world,
 //  complete with names, ISO codes, and geographic center coordinates.

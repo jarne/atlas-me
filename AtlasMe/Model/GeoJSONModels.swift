@@ -1,6 +1,6 @@
 //
 //  GeoJSONModels.swift
-//  CountriesIveBeen
+//  AtlasMe
 //
 //  Decodable model structures representing GeoJSON feature collection geometry.
 //  Kept in a separate file to ensure clean, non-isolated Decodable conformance

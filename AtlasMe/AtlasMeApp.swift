@@ -1,8 +1,8 @@
 //
-//  CountriesIveBeenApp.swift
-//  CountriesIveBeen
+//  AtlasMeApp.swift
+//  AtlasMe
 //
-//  This is the main entry point of the CountriesIveBeen application. It initializes
+//  This is the main entry point of the AtlasMe application. It initializes
 //  the SwiftData model container for storing visited countries and bootstraps the user interface.
 //
 
@@ -10,7 +10,7 @@ import SwiftUI
 import SwiftData
 
 @main
-struct CountriesIveBeenApp: App {
+struct AtlasMeApp: App {
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
             VisitedCountry.self,

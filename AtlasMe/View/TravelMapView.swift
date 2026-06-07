@@ -1,6 +1,6 @@
 //
 //  TravelMapView.swift
-//  CountriesIveBeen
+//  AtlasMe
 //
 //  Renders an interactive map marking all visited countries with their flag emojis.
 //  It allows users to tap annotations to view summary cards and navigate to details.

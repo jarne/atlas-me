@@ -1,6 +1,6 @@
 //
 //  PhotoImportView.swift
-//  CountriesIveBeen
+//  AtlasMe
 //
 //  A user interface allowing users to import visited countries automatically
 //  from the photo library. Features an interactive flow, real-time progress,
