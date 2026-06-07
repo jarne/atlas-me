@@ -17,10 +17,54 @@ struct TravelMapView: View {
     @State private var selectedCountry: VisitedCountry? = nil
     @State private var isShowingDetail = false
     
+    @StateObject private var borderLoader = CountryBorderLoader.shared
+    
+    private var visitedAlpha2s: Set<String> {
+        Set(visitedCountries.map { $0.alpha2.uppercased() })
+    }
+    
+    private var mask: MKPolygon? {
+        let worldCoordinates = [
+            CLLocationCoordinate2D(latitude: 90, longitude: 0),
+            CLLocationCoordinate2D(latitude: 90, longitude: 180),
+            CLLocationCoordinate2D(latitude: -90, longitude: 180),
+            CLLocationCoordinate2D(latitude: -90, longitude: 0),
+            CLLocationCoordinate2D(latitude: -90, longitude: -180),
+            CLLocationCoordinate2D(latitude: 90, longitude: -180)
+        ]
+        
+        var visitedPolygons: [MKPolygon] = []
+        for alpha2 in visitedAlpha2s {
+            if let countryPolygons = borderLoader.borders[alpha2] {
+                visitedPolygons.append(contentsOf: countryPolygons)
+            }
+        }
+        
+        return MKPolygon(coordinates: worldCoordinates, count: worldCoordinates.count, interiorPolygons: visitedPolygons.isEmpty ? nil : visitedPolygons)
+    }
+    
     var body: some View {
         NavigationStack {
             ZStack(alignment: .top) {
                 Map(position: $position, selection: $selectedCountry) {
+                    // 1. Draw the world-wide mask with holes for visited countries
+                    if let m = mask {
+                        MapPolygon(m)
+                            .foregroundStyle(Color.black.opacity(0.6))
+                    }
+                    
+                    // 2. Draw highlight strokes only for visited countries
+                    ForEach(borderLoader.borders.keys.sorted().filter { visitedAlpha2s.contains($0) }, id: \.self) { alpha2 in
+                        let isSelected = selectedCountry?.alpha2.uppercased() == alpha2
+                        let polygons = borderLoader.borders[alpha2] ?? []
+                        
+                        ForEach(0..<polygons.count, id: \.self) { index in
+                            MapPolygon(polygons[index])
+                                .foregroundStyle(Color.clear)
+                                .stroke(strokeColor(isSelected: isSelected), lineWidth: strokeWidth(isSelected: isSelected))
+                        }
+                    }
+                    
                     ForEach(visitedCountries) { country in
                         Annotation(country.name, coordinate: CLLocationCoordinate2D(latitude: country.latitude, longitude: country.longitude)) {
                             VStack(spacing: 4) {
@@ -76,6 +120,9 @@ struct TravelMapView: View {
                 if let selected = selectedCountry {
                     CountryDetailView(visitedCountry: selected)
                 }
+            }
+            .onAppear {
+                borderLoader.loadBordersIfNeeded()
             }
             .onChange(of: selectedCountry) { _, newValue in
                 if let country = newValue {
@@ -148,4 +195,13 @@ struct TravelMapView: View {
                 .shadow(color: Color.black.opacity(0.15), radius: 10, x: 0, y: 5)
         )
     }
+    
+    private func strokeColor(isSelected: Bool) -> Color {
+        return isSelected ? Color.blue : Color.blue.opacity(0.6)
+    }
+    
+    private func strokeWidth(isSelected: Bool) -> CGFloat {
+        return isSelected ? 2.5 : 1.2
+    }
 }
+
