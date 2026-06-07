@@ -95,6 +95,10 @@ class PhotoImportManager: ObservableObject {
                     return ([], 0, 0)
                 }
                 
+                Task { @MainActor in
+                    self.totalCount = count
+                }
+                
                 var visitedSet = existingCodes
                 var newlyImportedSet: Set<String> = []
                 var importsToSave: [(alpha2: String, date: Date)] = []
