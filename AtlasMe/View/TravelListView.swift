@@ -53,40 +53,43 @@ struct TravelListView: View {
                     }
                 } else {
                     List {
-                        // Header Stats Card
-                        statsHeaderCard
-                            .padding(.horizontal)
-                            .padding(.vertical, 8)
-                        
-                        ForEach(sortedAndFilteredCountries) { country in
-                            NavigationLink(destination: CountryDetailView(visitedCountry: country)) {
-                                HStack(spacing: 16) {
-                                    Text(country.flagEmoji)
-                                        .font(.system(size: 36))
-                                        .padding(8)
-                                        .background(Color(.secondarySystemBackground))
-                                        .clipShape(RoundedRectangle(cornerRadius: 12))
-                                    
-                                    VStack(alignment: .leading, spacing: 4) {
-                                        Text(country.name)
-                                            .font(.headline)
+                        Section {
+                            ForEach(sortedAndFilteredCountries) { country in
+                                NavigationLink(destination: CountryDetailView(visitedCountry: country)) {
+                                    HStack(spacing: 16) {
+                                        Text(country.flagEmoji)
+                                            .font(.system(size: 36))
+                                            .padding(8)
+                                            .background(Color(.secondarySystemBackground))
+                                            .clipShape(RoundedRectangle(cornerRadius: 12))
                                         
-                                        Text("Visited \(country.dateVisited, format: Date.FormatStyle(date: .abbreviated))")
-                                            .font(.caption)
-                                            .foregroundColor(.secondary)
-                                        
-                                        if !country.notes.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-                                            Text(country.notes)
-                                                .font(.footnote)
+                                        VStack(alignment: .leading, spacing: 4) {
+                                            Text(country.name)
+                                                .font(.headline)
+                                            
+                                            Text("Visited \(country.dateVisited, format: Date.FormatStyle(date: .abbreviated))")
+                                                .font(.caption)
                                                 .foregroundColor(.secondary)
-                                                .lineLimit(1)
+                                            
+                                            if !country.notes.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+                                                Text(country.notes)
+                                                    .font(.footnote)
+                                                    .foregroundColor(.secondary)
+                                                    .lineLimit(1)
+                                            }
                                         }
                                     }
+                                    .padding(.vertical, 4)
                                 }
-                                .padding(.vertical, 4)
+                            }
+                            .onDelete(perform: deleteVisitedCountries)
+                        } header: {
+                            TravelListHeader {
+                                statsHeaderCard
+                                    .padding(.bottom, 16)
+                                    .listRowInsets(EdgeInsets())
                             }
                         }
-                        .onDelete(perform: deleteVisitedCountries)
                     }
                     .listStyle(.insetGrouped)
                 }
@@ -220,6 +223,17 @@ struct TravelListView: View {
                 let countryToDelete = sortedAndFilteredCountries[index]
                 modelContext.delete(countryToDelete)
             }
+        }
+    }
+}
+
+struct TravelListHeader<Content: View>: View {
+    @Environment(\.isSearching) private var isSearching
+    @ViewBuilder let content: () -> Content
+    
+    var body: some View {
+        if !isSearching {
+            content()
         }
     }
 }
