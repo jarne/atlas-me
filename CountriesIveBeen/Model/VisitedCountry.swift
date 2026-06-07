@@ -3,7 +3,9 @@
 //  CountriesIveBeen
 //
 //  Defines the persistent SwiftData model for countries visited by the user. It stores
-//  the country's name, coordinates, code, the date of the visit, and custom travel notes.
+//  the country's ISO 3166-1 alpha-2 code, the date of the visit, and custom travel notes.
+//  Other static country details (like name, coordinates, etc.) are fetched dynamically
+//  from CountryStaticList.
 //
 
 import Foundation
@@ -12,21 +14,34 @@ import SwiftData
 @Model
 final class VisitedCountry {
     @Attribute(.unique) var alpha2: String
-    var name: String
-    var alpha3: String
-    var latitude: Double
-    var longitude: Double
     var dateVisited: Date
     var notes: String
     
-    init(alpha2: String, name: String, alpha3: String, latitude: Double, longitude: Double, dateVisited: Date = Date(), notes: String = "") {
+    init(alpha2: String, dateVisited: Date = Date(), notes: String = "") {
         self.alpha2 = alpha2.uppercased()
-        self.name = name
-        self.alpha3 = alpha3.uppercased()
-        self.latitude = latitude
-        self.longitude = longitude
         self.dateVisited = dateVisited
         self.notes = notes
+    }
+    
+    // Dynamically retrieve static country information from CountryStaticList
+    var countryInfo: Country? {
+        Country.allCountries.first(where: { $0.alpha2 == self.alpha2 })
+    }
+    
+    var name: String {
+        countryInfo?.name ?? "Unknown Country"
+    }
+    
+    var alpha3: String {
+        countryInfo?.alpha3 ?? ""
+    }
+    
+    var latitude: Double {
+        countryInfo?.latitude ?? 0.0
+    }
+    
+    var longitude: Double {
+        countryInfo?.longitude ?? 0.0
     }
     
     var flagEmoji: String {
@@ -40,3 +55,4 @@ final class VisitedCountry {
         return s
     }
 }
+

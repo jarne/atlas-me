@@ -37,10 +37,6 @@ struct ContentView: View {
     // Seed some mock data for preview
     let sample = VisitedCountry(
         alpha2: "FR",
-        name: "France",
-        alpha3: "FRA",
-        latitude: 46.2276,
-        longitude: 2.2137,
         dateVisited: Date(),
         notes: "Visited Paris, saw the Eiffel Tower!"
     )

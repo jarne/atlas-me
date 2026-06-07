@@ -129,10 +129,6 @@ struct AddCountryDetailsView: View {
     private func saveVisit() {
         let visited = VisitedCountry(
             alpha2: country.alpha2,
-            name: country.name,
-            alpha3: country.alpha3,
-            latitude: country.latitude,
-            longitude: country.longitude,
             dateVisited: dateVisited,
             notes: notes
         )
