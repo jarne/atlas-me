@@ -46,11 +46,14 @@ struct TravelMapView: View {
     var body: some View {
         NavigationStack {
             ZStack(alignment: .top) {
-                Map(position: $position, selection: $selectedCountry) {
+                Map(position: $position, bounds: MapCameraBounds(
+                    minimumDistance: 10000000,
+                    maximumDistance: 50000000
+                ), selection: $selectedCountry) {
                     // 1. Draw the world-wide mask with holes for visited countries
                     if let m = mask {
                         MapPolygon(m)
-                            .foregroundStyle(Color.black.opacity(0.6))
+                            .foregroundStyle(Color.black.opacity(0.4))
                     }
                     
                     // 2. Draw highlight strokes only for visited countries
@@ -61,7 +64,7 @@ struct TravelMapView: View {
                         ForEach(0..<polygons.count, id: \.self) { index in
                             MapPolygon(polygons[index])
                                 .foregroundStyle(Color.clear)
-                                .stroke(strokeColor(isSelected: isSelected), lineWidth: strokeWidth(isSelected: isSelected))
+                                .stroke(isSelected ? Color.blue : Color.clear, lineWidth: 3)
                         }
                     }
                     
@@ -194,14 +197,6 @@ struct TravelMapView: View {
                 .fill(.ultraThinMaterial)
                 .shadow(color: Color.black.opacity(0.15), radius: 10, x: 0, y: 5)
         )
-    }
-    
-    private func strokeColor(isSelected: Bool) -> Color {
-        return isSelected ? Color.blue : Color.blue.opacity(0.6)
-    }
-    
-    private func strokeWidth(isSelected: Bool) -> CGFloat {
-        return isSelected ? 2.5 : 1.2
     }
 }
 
