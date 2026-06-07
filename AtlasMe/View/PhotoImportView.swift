@@ -75,7 +75,7 @@ struct PhotoImportView: View {
             Circle()
                 .fill(
                     LinearGradient(
-                        colors: [Color.blue.opacity(0.15), Color.purple.opacity(0.15)],
+                        colors: [Color.accent.opacity(0.15), Color("SecondaryColor").opacity(0.15)],
                         startPoint: .topLeading,
                         endPoint: .bottomTrailing
                     )
@@ -94,7 +94,7 @@ struct PhotoImportView: View {
                 case .idle:
                     Image(systemName: "photo.badge.plus")
                         .font(.system(size: 50))
-                        .foregroundColor(.blue)
+                        .foregroundColor(.accent)
                 case .requestingAuthorization:
                     ProgressView()
                         .scaleEffect(1.5)
@@ -117,7 +117,7 @@ struct PhotoImportView: View {
                     } else {
                         Image(systemName: "info.circle.fill")
                             .font(.system(size: 60))
-                            .foregroundColor(.blue)
+                            .foregroundColor(.accent)
                     }
                 case .noPhotosWithLocation:
                     Image(systemName: "mappin.slash.circle.fill")
@@ -225,7 +225,7 @@ struct PhotoImportView: View {
         HStack(alignment: .top, spacing: 12) {
             Image(systemName: "hand.raised.fill")
                 .font(.title3)
-                .foregroundColor(.blue)
+                .foregroundColor(.accent)
             
             VStack(alignment: .leading, spacing: 4) {
                 Text("100% Private & Secure")
@@ -277,7 +277,7 @@ struct PhotoImportView: View {
                     .padding()
                     .background(
                         LinearGradient(
-                            colors: [Color.blue, Color.purple],
+                            colors: [Color.accent, Color("SecondaryColor")],
                             startPoint: .leading,
                             endPoint: .trailing
                         )
@@ -302,7 +302,7 @@ struct PhotoImportView: View {
                         Spacer()
                     }
                     .padding()
-                    .background(Color.blue)
+                    .background(Color.accent)
                     .clipShape(RoundedRectangle(cornerRadius: 14))
                 }
                 
@@ -318,7 +318,7 @@ struct PhotoImportView: View {
                         Spacer()
                     }
                     .padding()
-                    .background(Color.blue)
+                    .background(Color.accent)
                     .clipShape(RoundedRectangle(cornerRadius: 14))
                 }
             }

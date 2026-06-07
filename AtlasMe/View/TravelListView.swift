@@ -195,7 +195,7 @@ struct TravelListView: View {
                 
                 ProgressView(value: percentage, total: 100.0)
                     .tint(.white)
-                    .background(Color.white.opacity(0.3))
+                    .background(Color.white.opacity(0.4))
                     .clipShape(Capsule())
             }
         }
@@ -205,12 +205,12 @@ struct TravelListView: View {
             RoundedRectangle(cornerRadius: 20)
                 .fill(
                     LinearGradient(
-                        colors: [Color.blue, Color.purple],
+                        colors: [Color.accent, Color("SecondaryColor")],
                         startPoint: .topLeading,
                         endPoint: .bottomTrailing
                     )
                 )
-                .shadow(color: Color.blue.opacity(0.3), radius: 10, x: 0, y: 5)
+                .shadow(color: Color.accent.opacity(0.3), radius: 10, x: 0, y: 5)
         )
     }
     

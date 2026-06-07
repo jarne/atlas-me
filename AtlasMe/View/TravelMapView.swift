@@ -64,7 +64,7 @@ struct TravelMapView: View {
                         ForEach(0..<polygons.count, id: \.self) { index in
                             MapPolygon(polygons[index])
                                 .foregroundStyle(Color.clear)
-                                .stroke(isSelected ? Color.blue : Color.clear, lineWidth: 3)
+                                .stroke(isSelected ? Color.accent : Color.clear, lineWidth: 3)
                         }
                     }
                     
@@ -79,7 +79,7 @@ struct TravelMapView: View {
                                     .shadow(color: Color.black.opacity(0.15), radius: 4, x: 0, y: 2)
                                     .overlay(
                                         Circle()
-                                            .stroke(selectedCountry?.id == country.id ? Color.blue : Color.clear, lineWidth: 3)
+                                            .stroke(selectedCountry?.id == country.id ? Color.accent : Color.clear, lineWidth: 3)
                                     )
                             }
                             .scaleEffect(selectedCountry?.id == country.id ? 1.2 : 1.0)
@@ -176,7 +176,7 @@ struct TravelMapView: View {
             } label: {
                 Image(systemName: "arrow.right.circle.fill")
                     .font(.title)
-                    .foregroundColor(.blue)
+                    .foregroundColor(.accent)
             }
             .buttonStyle(.plain)
             
