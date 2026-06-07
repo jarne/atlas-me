@@ -108,7 +108,7 @@ struct PhotoImportView: View {
                 case .importing:
                     Image(systemName: "sparkles")
                         .font(.system(size: 50))
-                        .foregroundColor(.purple)
+                        .foregroundColor(Color("SecondaryColor"))
                 case .completed(let count):
                     if count > 0 {
                         Image(systemName: "checkmark.circle.fill")
@@ -245,7 +245,7 @@ struct PhotoImportView: View {
         VStack(spacing: 8) {
             ProgressView(value: importManager.progress, total: 1.0)
                 .progressViewStyle(.linear)
-                .tint(.purple)
+                .tint(Color("SecondaryColor"))
             
             Text("\(Int(importManager.progress * 100))%")
                 .font(.caption)
