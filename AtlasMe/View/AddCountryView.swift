@@ -106,7 +106,7 @@ struct AddCountryDetailsView: View {
             }
             
             Section(header: Text("Travel Details")) {
-                DatePicker("Date Visited", selection: $dateVisited, in: ...Date(), displayedComponents: .date)
+                DatePicker("First Visited", selection: $dateVisited, in: ...Date(), displayedComponents: .date)
             }
             
             Section(header: Text("Travel Notes (Optional)")) {

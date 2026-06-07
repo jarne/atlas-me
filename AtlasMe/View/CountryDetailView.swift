@@ -56,7 +56,7 @@ struct CountryDetailView: View {
             }
             
             Section(header: Text("Travel Details")) {
-                DatePicker("Date Visited", selection: $visitedCountry.dateVisited, in: ...Date(), displayedComponents: .date)
+                DatePicker("First Visited", selection: $visitedCountry.dateVisited, in: ...Date(), displayedComponents: .date)
             }
             
             Section(header: Text("Travel Notes")) {
