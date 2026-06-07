@@ -29,11 +29,6 @@ struct TravelListView: View {
     var body: some View {
         NavigationStack {
             VStack(spacing: 0) {
-                // Header Stats Card
-                statsHeaderCard
-                    .padding(.horizontal)
-                    .padding(.vertical, 8)
-                
                 if sortedAndFilteredCountries.isEmpty {
                     ContentUnavailableView {
                         Label(
@@ -57,6 +52,11 @@ struct TravelListView: View {
                     }
                 } else {
                     List {
+                        // Header Stats Card
+                        statsHeaderCard
+                            .padding(.horizontal)
+                            .padding(.vertical, 8)
+                        
                         ForEach(sortedAndFilteredCountries) { country in
                             NavigationLink(destination: CountryDetailView(visitedCountry: country)) {
                                 HStack(spacing: 16) {
