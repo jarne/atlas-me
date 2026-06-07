@@ -49,7 +49,7 @@ struct TravelMapView: View {
                 Map(position: $position, bounds: MapCameraBounds(
                     minimumDistance: 10000000,
                     maximumDistance: 50000000
-                ), selection: $selectedCountry) {
+                ), interactionModes: [.pan, .zoom], selection: $selectedCountry) {
                     // 1. Draw the world-wide mask with holes for visited countries
                     if let m = mask {
                         MapPolygon(m)
