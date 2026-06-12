@@ -5,8 +5,8 @@ jobs:
     name: Build Xcode app project
     runs-on: macos-26
     env:
-      APP_NAME: Commandoak
-      XCODE_VERSION: 26.0
+      APP_NAME: AtlasMe
+      XCODE_VERSION: 26.5
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -37,7 +37,7 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     env:
-      APP_NAME: Commandoak
+      APP_NAME: AtlasMe
     permissions:
       id-token: write
       contents: write
