@@ -14,15 +14,15 @@ struct ContentView: View {
 
     var body: some View {
         TabView(selection: $selectedTab) {
-            OverviewView()
+            HomeView()
                 .tabItem {
-                    Label("Overview", systemImage: "chart.bar.fill")
+                    Label("Home", systemImage: "chart.bar.horizontal.page")
                 }
                 .tag(0)
 
             TravelListView()
                 .tabItem {
-                    Label("Travels", systemImage: "airplane.circle.fill")
+                    Label("Countries", systemImage: "airplane.circle.fill")
                 }
                 .tag(1)
 

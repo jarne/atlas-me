@@ -1,5 +1,5 @@
 //
-//  OverviewView.swift
+//  HomeView.swift
 //  AtlasMe
 //
 //  Displays travel stats and exploration progress card.
@@ -8,7 +8,7 @@
 import SwiftData
 import SwiftUI
 
-struct OverviewView: View {
+struct HomeView: View {
     @Query private var visitedCountries: [VisitedCountry]
 
     var body: some View {
@@ -153,7 +153,7 @@ struct StatMiniCard: View {
     )
     container.mainContext.insert(sample)
 
-    return OverviewView()
+    return HomeView()
         .modelContainer(container)
         .padding()
 }
