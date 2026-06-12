@@ -6,9 +6,9 @@
 //  It allows users to edit their visit date and travel notes, or delete the visit entirely.
 //
 
-import SwiftUI
 import MapKit
 import SwiftData
+import SwiftUI
 
 struct CountryDetailView: View {
     @Environment(\.modelContext) private var modelContext
@@ -65,7 +65,7 @@ struct CountryDetailView: View {
 
             Section(header: Text("Travel Notes")) {
                 TextField("What did you do there?", text: $visitedCountry.notes, axis: .vertical)
-                    .lineLimit(3...8)
+                    .lineLimit(3 ... 8)
             }
 
             Section {

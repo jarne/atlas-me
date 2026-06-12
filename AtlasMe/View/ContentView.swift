@@ -6,8 +6,8 @@
 //  between the list view of visited countries and the interactive travel map.
 //
 
-import SwiftUI
 import SwiftData
+import SwiftUI
 
 struct ContentView: View {
     @State private var selectedTab = 0
@@ -39,8 +39,8 @@ struct ContentView: View {
 #Preview {
     let config = ModelConfiguration(isStoredInMemoryOnly: true)
     let container = (try? ModelContainer(for: VisitedCountry.self, configurations: config)) ?? {
-            fatalError("Failed to create preview container")
-        }()
+        fatalError("Failed to create preview container")
+    }()
 
     // Seed some mock data for preview
     let sample = VisitedCountry(

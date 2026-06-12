@@ -6,9 +6,9 @@
 //  It allows users to tap annotations to view summary cards and navigate to details.
 //
 
-import SwiftUI
 import MapKit
 import SwiftData
+import SwiftUI
 
 struct TravelMapView: View {
     @Query private var visitedCountries: [VisitedCountry]
@@ -48,8 +48,8 @@ struct TravelMapView: View {
         NavigationStack {
             ZStack(alignment: .top) {
                 Map(position: $position, bounds: MapCameraBounds(
-                    minimumDistance: 10000000,
-                    maximumDistance: 50000000
+                    minimumDistance: 10_000_000,
+                    maximumDistance: 50_000_000
                 ), interactionModes: [.pan, .zoom], selection: $selectedCountry) {
                     // 1. Draw the world-wide mask with holes for visited countries
                     if let maskPolygon = mask {
@@ -59,11 +59,12 @@ struct TravelMapView: View {
 
                     // 2. Draw highlight strokes only for visited countries
                     ForEach(borderLoader.borders.keys.sorted().filter {
-                        visitedAlpha2s.contains($0) }, id: \.self) { alpha2 in
+                        visitedAlpha2s.contains($0)
+                    }, id: \.self) { alpha2 in
                         let isSelected = selectedCountry?.alpha2.uppercased() == alpha2
                         let polygons = borderLoader.borders[alpha2] ?? []
 
-                        ForEach(0..<polygons.count, id: \.self) { index in
+                        ForEach(0 ..< polygons.count, id: \.self) { index in
                             MapPolygon(polygons[index])
                                 .foregroundStyle(Color.clear)
                                 .stroke(isSelected ? Color.accent : Color.clear, lineWidth: 3)
@@ -71,8 +72,13 @@ struct TravelMapView: View {
                     }
 
                     ForEach(visitedCountries) { country in
-                        Annotation(country.name, coordinate:
-                                    CLLocationCoordinate2D(latitude: country.latitude, longitude: country.longitude)) {
+                        Annotation(
+                            country.name,
+                            coordinate: CLLocationCoordinate2D(
+                                latitude: country.latitude,
+                                longitude: country.longitude
+                            )
+                        ) {
                             VStack(spacing: 4) {
                                 Text(country.flagEmoji)
                                     .font(.system(size: 28))
@@ -83,7 +89,7 @@ struct TravelMapView: View {
                                     .overlay(
                                         Circle()
                                             .stroke(selectedCountry?.id == country.id ?
-                                                    Color.accent : Color.clear, lineWidth: 3)
+                                                Color.accent : Color.clear, lineWidth: 3)
                                     )
                             }
                             .scaleEffect(selectedCountry?.id == country.id ? 1.2 : 1.0)
@@ -156,7 +162,6 @@ struct TravelMapView: View {
         guard let selected = selectedCountry else { return false }
         return visitedCountries.contains { $0.id == selected.id }
     }
-
 }
 
 struct SelectedCountryCard: View {

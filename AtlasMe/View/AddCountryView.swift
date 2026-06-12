@@ -6,8 +6,8 @@
 //  such as date of visit and notes, and add them to their list of visited countries.
 //
 
-import SwiftUI
 import SwiftData
+import SwiftUI
 
 struct AddCountryView: View {
     @Environment(\.modelContext) private var modelContext
@@ -20,9 +20,9 @@ struct AddCountryView: View {
     var body: some View {
         NavigationStack {
             List(filteredCountries) { country in
-                                NavigationLink(value: country) {
-                                    CountrySearchRow(country: country)
-                                }
+                NavigationLink(value: country) {
+                    CountrySearchRow(country: country)
+                }
             }
             .navigationTitle("Add Country")
             .navigationBarTitleDisplayMode(.inline)
@@ -49,8 +49,8 @@ struct AddCountryView: View {
         } else {
             return available.filter {
                 $0.name.localizedCaseInsensitiveContains(searchQuery) ||
-                $0.alpha2.localizedCaseInsensitiveContains(searchQuery) ||
-                $0.alpha3.localizedCaseInsensitiveContains(searchQuery)
+                    $0.alpha2.localizedCaseInsensitiveContains(searchQuery) ||
+                    $0.alpha3.localizedCaseInsensitiveContains(searchQuery)
             }
         }
     }
@@ -84,8 +84,8 @@ struct AddCountryDetailsView: View {
                         Latitude: \(country.latitude, specifier: "%.4f")
                         Longitude: \(country.longitude, specifier: "%.4f")
                         """)
-                            .font(.caption)
-                            .foregroundColor(.secondary)
+                        .font(.caption)
+                        .foregroundColor(.secondary)
                     }
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
@@ -99,7 +99,7 @@ struct AddCountryDetailsView: View {
 
             Section(header: Text("Travel Notes (Optional)")) {
                 TextField("What did you do there? Favorite places?", text: $notes, axis: .vertical)
-                    .lineLimit(3...8)
+                    .lineLimit(3 ... 8)
             }
         }
         .navigationTitle(country.name)

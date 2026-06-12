@@ -5,8 +5,8 @@
 //  Displays travel stats and exploration progress card.
 //
 
-import SwiftUI
 import SwiftData
+import SwiftUI
 
 struct OverviewView: View {
     @Query private var visitedCountries: [VisitedCountry]
@@ -139,8 +139,8 @@ struct StatMiniCard: View {
 #Preview {
     let config = ModelConfiguration(isStoredInMemoryOnly: true)
     let container = (try? ModelContainer(for: VisitedCountry.self, configurations: config)) ?? {
-            fatalError("Failed to create preview container")
-        }()
+        fatalError("Failed to create preview container")
+    }()
 
     // Seed some mock data for preview
     let sample = VisitedCountry(

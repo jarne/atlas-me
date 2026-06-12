@@ -6,9 +6,9 @@
 //  the geographic data into MapKit MKPolygons for rendering country borders.
 //
 
+import Combine
 import Foundation
 import MapKit
-import Combine
 
 @MainActor
 class CountryBorderLoader: ObservableObject {
@@ -20,7 +20,7 @@ class CountryBorderLoader: ObservableObject {
     private init() {}
 
     func loadBordersIfNeeded() {
-        guard borders.isEmpty && !isLoading else { return }
+        guard borders.isEmpty, !isLoading else { return }
         isLoading = true
 
         Task.detached(priority: .userInitiated) {
@@ -36,17 +36,19 @@ class CountryBorderLoader: ObservableObject {
         return parseGeoJSON()
     }
 
-    nonisolated static func countryCode(for coordinate: CLLocationCoordinate2D,
-                                        in borders: [String: [MKPolygon]]) -> String? {
+    nonisolated static func countryCode(
+        for coordinate: CLLocationCoordinate2D,
+        in borders: [String: [MKPolygon]]
+    ) -> String? {
         for (alpha2, polygons) in borders {
-                for polygon in polygons where contains(coordinate: coordinate, polygon: polygon) {
-                    return alpha2
-                }
+            for polygon in polygons where contains(coordinate: coordinate, polygon: polygon) {
+                return alpha2
             }
-            return nil
+        }
+        return nil
     }
 
-    nonisolated private static func contains(coordinate: CLLocationCoordinate2D, polygon: MKPolygon) -> Bool {
+    private nonisolated static func contains(coordinate: CLLocationCoordinate2D, polygon: MKPolygon) -> Bool {
         let mapPoint = MKMapPoint(coordinate)
         if !polygon.boundingMapRect.contains(mapPoint) {
             return false
@@ -56,7 +58,8 @@ class CountryBorderLoader: ObservableObject {
                                               count: polygon.pointCount)
         polygon.getCoordinates(&coords, range: NSRange(location: 0, length: polygon.pointCount))
 
-        guard isPointInPolygon(coordinate, vertices: coords) else {
+        guard isPointInPolygon(coordinate, vertices: coords)
+        else {
             return false
         }
 
@@ -69,17 +72,19 @@ class CountryBorderLoader: ObservableObject {
         return true
     }
 
-    nonisolated private static func isPointInPolygon(_ point: CLLocationCoordinate2D,
-                                                     vertices: [CLLocationCoordinate2D]) -> Bool {
+    private nonisolated static func isPointInPolygon(
+        _ point: CLLocationCoordinate2D,
+        vertices: [CLLocationCoordinate2D]
+    ) -> Bool {
         guard vertices.count > 2 else { return false }
         var inside = false
         var previous = vertices.count - 1
-        for current in 0..<vertices.count {
+        for current in 0 ..< vertices.count {
             let currentVertex = vertices[current]
             let previousVertex = vertices[previous]
 
             let intersect = ((currentVertex.longitude > point.longitude) !=
-                             (previousVertex.longitude > point.longitude))
+                (previousVertex.longitude > point.longitude))
                 && (point.latitude < (previousVertex.latitude - currentVertex.latitude) *
                     (point.longitude - currentVertex.longitude) /
                     (previousVertex.longitude - currentVertex.longitude) + currentVertex.latitude)
@@ -91,14 +96,16 @@ class CountryBorderLoader: ObservableObject {
         return inside
     }
 
-    nonisolated private func parseGeoJSON() -> [String: [MKPolygon]] {
+    private nonisolated func parseGeoJSON() -> [String: [MKPolygon]] {
         guard let url = Bundle.main.url(forResource: "countries", withExtension: "geojson"),
-              let data = try? Data(contentsOf: url) else {
+              let data = try? Data(contentsOf: url)
+        else {
             return [:]
         }
 
         let decoder = JSONDecoder()
-        guard let featureCollection = try? decoder.decode(GeoJSONFeatureCollection.self, from: data) else {
+        guard let featureCollection = try? decoder.decode(GeoJSONFeatureCollection.self, from: data)
+        else {
             return [:]
         }
 
@@ -110,11 +117,11 @@ class CountryBorderLoader: ObservableObject {
             var polygons: [MKPolygon] = []
 
             switch feature.geometry.coordinates {
-            case .polygon(let rings):
+            case let .polygon(rings):
                 if let polygon = createMKPolygon(fromRings: rings) {
                     polygons.append(polygon)
                 }
-            case .multiPolygon(let multipolygonRings):
+            case let .multiPolygon(multipolygonRings):
                 for rings in multipolygonRings {
                     if let polygon = createMKPolygon(fromRings: rings) {
                         polygons.append(polygon)
@@ -128,7 +135,7 @@ class CountryBorderLoader: ObservableObject {
         return result
     }
 
-    nonisolated private func createMKPolygon(fromRings rings: [[[Double]]]) -> MKPolygon? {
+    private nonisolated func createMKPolygon(fromRings rings: [[[Double]]]) -> MKPolygon? {
         guard !rings.isEmpty else { return nil }
 
         // The first ring is the exterior boundary

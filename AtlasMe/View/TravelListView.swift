@@ -6,8 +6,8 @@
 //  that calculates and shows the user's travel stats and exploration progress.
 //
 
-import SwiftUI
 import SwiftData
+import SwiftUI
 
 struct TravelListView: View {
     @Environment(\.modelContext) private var modelContext
@@ -24,7 +24,9 @@ struct TravelListView: View {
         case nameAZ = "Name (A-Z)"
         case nameZA = "Name (Z-A)"
 
-        var id: String { self.rawValue }
+        var id: String {
+            rawValue
+        }
 
         var localizedName: String {
             switch self {

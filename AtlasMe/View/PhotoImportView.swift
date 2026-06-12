@@ -7,8 +7,8 @@
 //  and privacy-focused messaging.
 //
 
-import SwiftUI
 import SwiftData
+import SwiftUI
 
 struct PhotoImportView: View {
     @Environment(\.modelContext) private var modelContext
@@ -72,7 +72,7 @@ struct PhotoImportView: View {
         }
     }
 
-    // Check if the current state is finished or completed
+    /// Check if the current state is finished or completed
     private var isFinishedState: Bool {
         switch importManager.status {
         case .completed, .noPhotosWithLocation, .denied:
@@ -128,7 +128,7 @@ struct ImportStatusIconView: View {
                     Image(systemName: "sparkles")
                         .font(.system(size: 50))
                         .foregroundColor(Color("SecondaryColor"))
-                case .completed(let count):
+                case let .completed(count):
                     if count > 0 {
                         Image(systemName: "checkmark.circle.fill")
                             .font(.system(size: 60))
@@ -164,13 +164,13 @@ struct ImportStatusContentView: View {
                     .bold()
 
                 Text("""
-                    Scan the location metadata in your photo library to automatically add the countries \
-                    you've travelled to, set with the date you visited them.
-                    """)
-                    .font(.body)
-                    .foregroundColor(.secondary)
-                    .multilineTextAlignment(.center)
-                    .padding(.horizontal, 8)
+                Scan the location metadata in your photo library to automatically add the countries \
+                you've travelled to, set with the date you visited them.
+                """)
+                .font(.body)
+                .foregroundColor(.secondary)
+                .multilineTextAlignment(.center)
+                .padding(.horizontal, 8)
 
                 PrivacyCard()
                     .padding(.top, 8)
@@ -215,7 +215,7 @@ struct ImportStatusContentView: View {
                 .font(.subheadline)
                 .foregroundColor(.secondary)
 
-            case .completed(let count):
+            case let .completed(count):
                 Text("Import Complete!")
                     .font(.title2)
                     .bold()
@@ -240,13 +240,13 @@ struct ImportStatusContentView: View {
                     .bold()
 
                 Text("""
-                    We couldn't find any photos with location coordinates in your library. \
-                    Make sure location services are enabled for your camera.
-                    """)
-                    .font(.body)
-                    .foregroundColor(.secondary)
-                    .multilineTextAlignment(.center)
-                    .padding(.horizontal, 16)
+                We couldn't find any photos with location coordinates in your library. \
+                Make sure location services are enabled for your camera.
+                """)
+                .font(.body)
+                .foregroundColor(.secondary)
+                .multilineTextAlignment(.center)
+                .padding(.horizontal, 16)
             }
         }
         .animation(.easeInOut, value: status)
@@ -265,11 +265,11 @@ struct PrivacyCard: View {
                     .font(.subheadline)
                     .bold()
                 Text("""
-                    All photo location data is processed entirely offline on your device. \
-                    Your photos are never uploaded or shared.
-                    """)
-                    .font(.caption)
-                    .foregroundColor(.secondary)
+                All photo location data is processed entirely offline on your device. \
+                Your photos are never uploaded or shared.
+                """)
+                .font(.caption)
+                .foregroundColor(.secondary)
             }
         }
         .padding(16)

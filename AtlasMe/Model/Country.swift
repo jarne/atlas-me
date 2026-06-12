@@ -9,7 +9,10 @@
 import Foundation
 
 struct Country: Identifiable, Codable, Hashable {
-    var id: String { alpha2 }
+    var id: String {
+        alpha2
+    }
+
     let name: String
     let alpha2: String
     let alpha3: String
@@ -17,7 +20,7 @@ struct Country: Identifiable, Codable, Hashable {
     let longitude: Double
 
     var flagEmoji: String {
-        let base: UInt32 = 127397
+        let base: UInt32 = 127_397
         var flagString = ""
         for scalar in alpha2.uppercased().unicodeScalars {
             if let scalar = UnicodeScalar(base + scalar.value) {

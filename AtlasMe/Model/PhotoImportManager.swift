@@ -7,12 +7,12 @@
 //  and saving new countries with the photo's creation date.
 //
 
+import Combine
+import CoreLocation
 import Foundation
+import MapKit
 import Photos
 import SwiftData
-import CoreLocation
-import Combine
-import MapKit
 
 @MainActor
 class PhotoImportManager: ObservableObject {
@@ -66,7 +66,8 @@ class PhotoImportManager: ObservableObject {
         let existingCodes = fetchExistingCountryCodes()
 
         Task {
-            guard let borders = await ensureBordersLoaded() else {
+            guard let borders = await ensureBordersLoaded()
+            else {
                 self.status = .completed(importedCount: 0)
                 return
             }
@@ -119,7 +120,8 @@ class PhotoImportManager: ObservableObject {
             let assets = PHAsset.fetchAssets(with: .image, options: options)
 
             let count = assets.count
-            guard count > 0 else {
+            guard count > 0
+            else {
                 return ScanResult(imports: [], totalCount: 0, photosWithLocationCount: 0)
             }
 
@@ -134,7 +136,7 @@ class PhotoImportManager: ObservableObject {
             var importsToSave: [(alpha2: String, date: Date)] = []
             var photosWithLocationCount = 0
 
-            for assetI in 0..<count {
+            for assetI in 0 ..< count {
                 let asset = assets.object(at: assetI)
                 if let location = asset.location, let date = asset.creationDate {
                     photosWithLocationCount += 1

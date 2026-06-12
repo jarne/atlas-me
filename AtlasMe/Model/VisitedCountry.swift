@@ -23,7 +23,7 @@ final class VisitedCountry {
         self.notes = notes
     }
 
-    // Dynamically retrieve static country information from CountryStaticList
+    /// Dynamically retrieve static country information from CountryStaticList
     var countryInfo: Country? {
         Country.allCountries.first(where: { $0.alpha2 == self.alpha2 })
     }
@@ -45,7 +45,7 @@ final class VisitedCountry {
     }
 
     var flagEmoji: String {
-        let base: UInt32 = 127397
+        let base: UInt32 = 127_397
         var flagString = ""
         for scalar in alpha2.uppercased().unicodeScalars {
             if let scalar = UnicodeScalar(base + scalar.value) {

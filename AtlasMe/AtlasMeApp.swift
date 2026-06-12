@@ -6,8 +6,8 @@
 //  the SwiftData model container for storing visited countries and bootstraps the user interface.
 //
 
-import SwiftUI
 import SwiftData
+import SwiftUI
 
 @main
 struct AtlasMeApp: App {
