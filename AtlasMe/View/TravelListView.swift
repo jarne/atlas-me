@@ -80,7 +80,7 @@ struct TravelListView: View {
                     .listStyle(.insetGrouped)
                 }
             }
-            .navigationTitle("My Travels")
+            .navigationTitle("My Countries")
             .searchable(text: $searchText, prompt: "Search visited countries...")
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {

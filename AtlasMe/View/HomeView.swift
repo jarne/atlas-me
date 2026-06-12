@@ -186,7 +186,7 @@ struct HomeView: View {
                 }
                 .padding()
             }
-            .navigationTitle("Overview")
+            .navigationTitle("Atlas & Me")
         }
     }
 }

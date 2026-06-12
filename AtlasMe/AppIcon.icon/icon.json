@@ -1,5 +1,7 @@
 {
-  "fill" : "automatic",
+  "fill" : {
+    "solid" : "srgb:0.87059,0.36471,0.13725,1.00000"
+  },
   "groups" : [
     {
       "layers" : [
@@ -8,7 +10,7 @@
           "image-name" : "CountriesIveBeen Logo.png",
           "name" : "CountriesIveBeen Logo",
           "position" : {
-            "scale" : 0.45,
+            "scale" : 0.4,
             "translation-in-points" : [
               0,
               0
