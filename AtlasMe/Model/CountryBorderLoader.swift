@@ -139,16 +139,32 @@ class CountryBorderLoader: ObservableObject {
         guard !rings.isEmpty else { return nil }
 
         // The first ring is the exterior boundary
-        let exteriorCoordinates = rings[0].map { CLLocationCoordinate2D(latitude: $0[1], longitude: $0[0]) }
+        let exteriorCoordinates = rings[0].map { cleanCoordinate($0) }
 
         // The remaining rings are interior holes
         let interiorPolygons = rings.dropFirst().compactMap { ring -> MKPolygon? in
-            let coords = ring.map { CLLocationCoordinate2D(latitude: $0[1], longitude: $0[0]) }
+            let coords = ring.map { cleanCoordinate($0) }
             guard !coords.isEmpty else { return nil }
             return MKPolygon(coordinates: coords, count: coords.count)
         }
 
         return MKPolygon(coordinates: exteriorCoordinates, count: exteriorCoordinates.count,
                          interiorPolygons: interiorPolygons.isEmpty ? nil : interiorPolygons)
+    }
+
+    /// "The Fiji Fix"
+    /// Fiji sits directly on the international date line (the 180th meridian).
+    /// When MapKit processes these coordinates, it normalizes anything exceeding 180.0 to a negative
+    /// longitude (e.g. -179.999999...). Within a single polygon, switching between +179.4 and -179.9
+    /// triggers a coordinate sign-flip.
+    private nonisolated func cleanCoordinate(_ raw: [Double]) -> CLLocationCoordinate2D {
+        let lat = raw[1]
+        var lon = raw[0]
+        if lon >= 180.0 {
+            lon = 179.9999
+        } else if lon <= -180.0 {
+            lon = -179.9999
+        }
+        return CLLocationCoordinate2D(latitude: lat, longitude: lon)
     }
 }
