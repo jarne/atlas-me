@@ -138,7 +138,10 @@ struct PhotoImportView: View {
                     .font(.title2)
                     .bold()
 
-                Text("Scan the location metadata in your photo library to automatically add the countries you've travelled to, set with the date you visited them.")
+                Text("""
+                    Scan the location metadata in your photo library to automatically add the countries \
+                    you've travelled to, set with the date you visited them.
+                    """)
                     .font(.body)
                     .foregroundColor(.secondary)
                     .multilineTextAlignment(.center)
@@ -211,7 +214,10 @@ struct PhotoImportView: View {
                     .font(.title2)
                     .bold()
 
-                Text("We couldn't find any photos with location coordinates in your library. Make sure location services are enabled for your camera.")
+                Text("""
+                    We couldn't find any photos with location coordinates in your library. \
+                    Make sure location services are enabled for your camera.
+                    """)
                     .font(.body)
                     .foregroundColor(.secondary)
                     .multilineTextAlignment(.center)
@@ -231,7 +237,10 @@ struct PhotoImportView: View {
                 Text("100% Private & Secure")
                     .font(.subheadline)
                     .bold()
-                Text("All photo location data is processed entirely offline on your device. Your photos are never uploaded or shared.")
+                Text("""
+                    All photo location data is processed entirely offline on your device. \
+                    Your photos are never uploaded or shared.
+                    """)
                     .font(.caption)
                     .foregroundColor(.secondary)
             }
