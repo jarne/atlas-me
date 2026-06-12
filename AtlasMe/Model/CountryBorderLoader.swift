@@ -64,7 +64,7 @@ class CountryBorderLoader: ObservableObject {
         }
 
         if let interiorPolygons = polygon.interiorPolygons {
-            for hole in polygon.interiorPolygons ?? [] where contains(coordinate: coordinate, polygon: hole) {
+            for hole in interiorPolygons where contains(coordinate: coordinate, polygon: hole) {
                 return false
             }
         }
