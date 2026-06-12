@@ -83,12 +83,6 @@ struct TravelListView: View {
                                 }
                             }
                             .onDelete(perform: deleteVisitedCountries)
-                        } header: {
-                            TravelListHeader {
-                                statsHeaderCard
-                                    .padding(.bottom, 16)
-                                    .listRowInsets(EdgeInsets())
-                            }
                         }
                     }
                     .listStyle(.insetGrouped)
@@ -155,67 +149,7 @@ struct TravelListView: View {
         
         return result
     }
-    
-    private var statsHeaderCard: some View {
-        let totalOfficial = Country.allCountries.count
-        let visitedCount = visitedCountries.count
-        let percentage = totalOfficial > 0 ? (Double(visitedCount) / Double(totalOfficial)) * 100.0 : 0.0
-        
-        return VStack(alignment: .leading, spacing: 12) {
-            HStack {
-                VStack(alignment: .leading, spacing: 4) {
-                    Text("WORLD EXPLORER")
-                        .font(.caption)
-                        .fontWeight(.bold)
-                        .foregroundColor(.white.opacity(0.8))
-                        .tracking(1.5)
-                    
-                    HStack(alignment: .firstTextBaseline, spacing: 6) {
-                        Text("\(visitedCount)")
-                            .font(.system(size: 40, weight: .bold, design: .rounded))
-                        Text("/ \(totalOfficial) Countries")
-                            .font(.headline)
-                            .foregroundColor(.white.opacity(0.8))
-                    }
-                }
-                
-                Spacer()
-                
-                // Globe badge
-                Image(systemName: "globe.europe.africa.fill")
-                    .font(.system(size: 44))
-                    .foregroundColor(.white.opacity(0.9))
-            }
-            
-            VStack(alignment: .leading, spacing: 6) {
-                HStack {
-                    Text("\(percentage, specifier: "%.1f")% of the world visited")
-                        .font(.subheadline)
-                        .fontWeight(.semibold)
-                    
-                    Spacer()
-                }
-                
-                ProgressView(value: percentage, total: 100.0)
-                    .tint(.white)
-                    .background(Color.white.opacity(0.4))
-                    .clipShape(Capsule())
-            }
-        }
-        .foregroundColor(.white)
-        .padding(20)
-        .background(
-            RoundedRectangle(cornerRadius: 20)
-                .fill(
-                    LinearGradient(
-                        colors: [Color.accent, Color("SecondaryColor")],
-                        startPoint: .topLeading,
-                        endPoint: .bottomTrailing
-                    )
-                )
-                .shadow(color: Color.accent.opacity(0.3), radius: 10, x: 0, y: 5)
-        )
-    }
+
     
     private func deleteVisitedCountries(at offsets: IndexSet) {
         withAnimation {
@@ -227,13 +161,4 @@ struct TravelListView: View {
     }
 }
 
-struct TravelListHeader<Content: View>: View {
-    @Environment(\.isSearching) private var isSearching
-    @ViewBuilder let content: () -> Content
-    
-    var body: some View {
-        if !isSearching {
-            content()
-        }
-    }
-}
+

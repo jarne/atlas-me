@@ -14,17 +14,23 @@ struct ContentView: View {
     
     var body: some View {
         TabView(selection: $selectedTab) {
+            OverviewView()
+                .tabItem {
+                    Label("Overview", systemImage: "chart.bar.fill")
+                }
+                .tag(0)
+            
             TravelListView()
                 .tabItem {
                     Label("Travels", systemImage: "airplane.circle.fill")
                 }
-                .tag(0)
+                .tag(1)
             
             TravelMapView()
                 .tabItem {
                     Label("Map", systemImage: "map.fill")
                 }
-                .tag(1)
+                .tag(2)
         }
         .tint(.accent)
     }
