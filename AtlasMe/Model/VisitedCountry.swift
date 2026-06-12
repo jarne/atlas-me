@@ -29,7 +29,7 @@ final class VisitedCountry {
     }
 
     var name: String {
-        countryInfo?.name ?? "Unknown Country"
+        countryInfo?.name ?? String(localized: "Unknown Country")
     }
 
     var alpha3: String {

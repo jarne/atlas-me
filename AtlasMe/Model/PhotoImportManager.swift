@@ -147,7 +147,7 @@ class PhotoImportManager: ObservableObject {
                 let newVisited = VisitedCountry(
                     alpha2: importData.alpha2,
                     dateVisited: importData.date,
-                    notes: "Imported from Photo Library"
+                    notes: String(localized: "Imported from Photo Library")
                 )
                 modelContext.insert(newVisited)
             }

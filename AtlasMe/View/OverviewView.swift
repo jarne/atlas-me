@@ -83,14 +83,14 @@ struct OverviewView: View {
 
                         HStack(spacing: 16) {
                             StatMiniCard(
-                                title: "Total Visits",
+                                title: String(localized: "Total Visits"),
                                 value: "\(visitedCount)",
                                 icon: "airplane",
                                 color: .blue
                             )
 
                             StatMiniCard(
-                                title: "Remaining",
+                                title: String(localized: "Remaining"),
                                 value: "\(max(0, totalOfficial - visitedCount))",
                                 icon: "map",
                                 color: .orange

@@ -25,6 +25,19 @@ struct TravelListView: View {
         case nameZA = "Name (Z-A)"
 
         var id: String { self.rawValue }
+
+        var localizedName: String {
+            switch self {
+            case .dateNewest:
+                return String(localized: "Date (Newest)")
+            case .dateOldest:
+                return String(localized: "Date (Oldest)")
+            case .nameAZ:
+                return String(localized: "Name (A-Z)")
+            case .nameZA:
+                return String(localized: "Name (Z-A)")
+            }
+        }
     }
 
     var body: some View {
@@ -103,7 +116,7 @@ struct TravelListView: View {
                     Menu {
                         Picker("Sort By", selection: $sortOption) {
                             ForEach(SortOption.allCases) { option in
-                                Text(option.rawValue).tag(option)
+                                Text(option.localizedName).tag(option)
                             }
                         }
                     } label: {
