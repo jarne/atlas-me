@@ -103,10 +103,16 @@ class PhotoImportManager: ObservableObject {
         return borders.isEmpty ? nil : borders
     }
 
+    struct ScanResult {
+        let imports: [(alpha2: String, date: Date)]
+        let totalCount: Int
+        let photosWithLocationCount: Int
+    }
+
     private func scanPhotoLibrary(
         existingCodes: Set<String>,
         borders: [String: [MKPolygon]]
-    ) async -> (imports: [(alpha2: String, date: Date)], totalCount: Int, photosWithLocationCount: Int) {
+    ) async -> ScanResult {
         await Task.detached(priority: .userInitiated) { [weak self] in
             let options = PHFetchOptions()
             options.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: true)]
@@ -114,7 +120,7 @@ class PhotoImportManager: ObservableObject {
 
             let count = assets.count
             guard count > 0 else {
-                return ([], 0, 0)
+                return ScanResult(imports: [], totalCount: 0, photosWithLocationCount: 0)
             }
 
             if let self {
@@ -159,7 +165,11 @@ class PhotoImportManager: ObservableObject {
                 }
             }
 
-            return (importsToSave, count, photosWithLocationCount)
+            return ScanResult(
+                imports: importsToSave,
+                totalCount: count,
+                photosWithLocationCount: photosWithLocationCount
+            )
         }.value
     }
 
