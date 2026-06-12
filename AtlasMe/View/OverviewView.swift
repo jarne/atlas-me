@@ -18,6 +18,9 @@ struct OverviewView: View {
                     let totalOfficial = Country.allCountries.count
                     let visitedCount = visitedCountries.count
                     let percentage = totalOfficial > 0 ? (Double(visitedCount) / Double(totalOfficial)) * 100.0 : 0.0
+                    var formattedPercentage: String {
+                        (percentage / 100).formatted(.percent.precision(.fractionLength(1)))
+                    }
 
                     // Main Explorer Card
                     VStack(alignment: .leading, spacing: 12) {
@@ -48,7 +51,7 @@ struct OverviewView: View {
 
                         VStack(alignment: .leading, spacing: 6) {
                             HStack {
-                                Text("\(percentage, specifier: "%.1f")% of the world visited")
+                                Text("\(formattedPercentage) of the world visited")
                                     .font(.subheadline)
                                     .fontWeight(.semibold)
 

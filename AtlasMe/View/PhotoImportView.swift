@@ -287,7 +287,7 @@ struct ImportProgressView: View {
                 .progressViewStyle(.linear)
                 .tint(Color("SecondaryColor"))
 
-            Text("\(Int(progress * 100))%")
+            Text(progress, format: .percent.precision(.fractionLength(0)))
                 .font(.caption)
                 .bold()
                 .foregroundColor(.secondary)
