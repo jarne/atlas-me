@@ -21,8 +21,11 @@ nonisolated struct GeoJSONFeature: Decodable {
 }
 
 nonisolated struct GeoJSONProperties: Decodable {
+    // Disable identifier name lint as these names are hardcoded in our data JSON file
+    // swiftlint:disable identifier_name
     let iso_a2: String?
     let iso_a3: String?
+    // swiftlint:enable identifier_name
     let name: String?
 }
 

@@ -38,7 +38,9 @@ struct ContentView: View {
 
 #Preview {
     let config = ModelConfiguration(isStoredInMemoryOnly: true)
-    let container = try! ModelContainer(for: VisitedCountry.self, configurations: config)
+    let container = (try? ModelContainer(for: VisitedCountry.self, configurations: config)) ?? {
+            fatalError("Failed to create preview container")
+        }()
 
     // Seed some mock data for preview
     let sample = VisitedCountry(
