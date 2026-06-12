@@ -110,6 +110,13 @@ class PhotoImportManager: ObservableObject {
         let photosWithLocationCount: Int
     }
 
+    struct ScanState {
+        var visitedSet: Set<String>
+        var newlyImportedSet: Set<String>
+        var importsToSave: [(alpha2: String, date: Date)]
+        var photosWithLocationCount: Int
+    }
+
     private func scanPhotoLibrary(
         existingCodes: Set<String>,
         borders: [String: [MKPolygon]]
@@ -120,8 +127,7 @@ class PhotoImportManager: ObservableObject {
             let assets = PHAsset.fetchAssets(with: .image, options: options)
 
             let count = assets.count
-            guard count > 0
-            else {
+            guard count > 0 else {
                 return ScanResult(imports: [], totalCount: 0, photosWithLocationCount: 0)
             }
 
@@ -131,48 +137,62 @@ class PhotoImportManager: ObservableObject {
                 }
             }
 
-            var visitedSet = existingCodes
-            var newlyImportedSet: Set<String> = []
-            var importsToSave: [(alpha2: String, date: Date)] = []
-            var photosWithLocationCount = 0
+            var state = ScanState(
+                visitedSet: existingCodes,
+                newlyImportedSet: [],
+                importsToSave: [],
+                photosWithLocationCount: 0
+            )
 
             for assetI in 0 ..< count {
                 let asset = assets.object(at: assetI)
-                if let location = asset.location, let date = asset.creationDate {
-                    photosWithLocationCount += 1
-                    let coord = location.coordinate
-                    if let alpha2 = CountryBorderLoader.countryCode(for: coord, in: borders) {
-                        let upperAlpha2 = alpha2.uppercased()
-                        if !visitedSet.contains(upperAlpha2) {
-                            visitedSet.insert(upperAlpha2)
-                            newlyImportedSet.insert(upperAlpha2)
-                            importsToSave.append((alpha2: upperAlpha2, date: date))
-                        }
-                    }
-                }
+                Self.processAsset(
+                    asset,
+                    borders: borders,
+                    state: &state
+                )
 
-                // Throttle MainActor UI updates
                 if assetI % 10 == 0 || assetI == count - 1 {
-                    let progressVal = Double(assetI + 1) / Double(count)
-                    let processedVal = assetI + 1
-                    let importedVal = newlyImportedSet.count
-
+                    let importedVal = state.newlyImportedSet.count
                     if let self {
-                        await MainActor.run {
-                            self.progress = progressVal
-                            self.processedCount = processedVal
-                            self.importedCountriesCount = importedVal
-                        }
+                        await self.updateUIProgress(index: assetI, count: count, newlyImportedCount: importedVal)
                     }
                 }
             }
 
             return ScanResult(
-                imports: importsToSave,
+                imports: state.importsToSave,
                 totalCount: count,
-                photosWithLocationCount: photosWithLocationCount
+                photosWithLocationCount: state.photosWithLocationCount
             )
         }.value
+    }
+
+    private nonisolated static func processAsset(
+        _ asset: PHAsset,
+        borders: [String: [MKPolygon]],
+        state: inout ScanState
+    ) {
+        guard let location = asset.location, let date = asset.creationDate else { return }
+        state.photosWithLocationCount += 1
+        let coord = location.coordinate
+        if let alpha2 = CountryBorderLoader.countryCode(for: coord, in: borders) {
+            let upperAlpha2 = alpha2.uppercased()
+            if !state.visitedSet.contains(upperAlpha2) {
+                state.visitedSet.insert(upperAlpha2)
+                state.newlyImportedSet.insert(upperAlpha2)
+                state.importsToSave.append((alpha2: upperAlpha2, date: date))
+            }
+        }
+    }
+
+    private func updateUIProgress(index: Int, count: Int, newlyImportedCount: Int) {
+        let progressVal = Double(index + 1) / Double(count)
+        let processedVal = index + 1
+
+        progress = progressVal
+        processedCount = processedVal
+        importedCountriesCount = newlyImportedCount
     }
 
     private func saveImportedCountries(_ imports: [(alpha2: String, date: Date)]) {
