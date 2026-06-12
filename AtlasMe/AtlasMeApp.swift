@@ -13,7 +13,7 @@ import SwiftData
 struct AtlasMeApp: App {
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
-            VisitedCountry.self,
+            VisitedCountry.self
         ])
         let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
 

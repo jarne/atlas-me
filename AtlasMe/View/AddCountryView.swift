@@ -12,11 +12,11 @@ import SwiftData
 struct AddCountryView: View {
     @Environment(\.modelContext) private var modelContext
     @Environment(\.dismiss) private var dismiss
-    
+
     @Query private var visitedCountries: [VisitedCountry]
-    
+
     @State private var searchQuery = ""
-    
+
     var body: some View {
         NavigationStack {
             List(filteredCountries) { country in
@@ -27,7 +27,7 @@ struct AddCountryView: View {
                             .padding(8)
                             .background(Color(.secondarySystemBackground))
                             .clipShape(RoundedRectangle(cornerRadius: 10))
-                        
+
                         VStack(alignment: .leading, spacing: 4) {
                             Text(country.name)
                                 .font(.headline)
@@ -54,11 +54,11 @@ struct AddCountryView: View {
             }
         }
     }
-    
+
     private var filteredCountries: [Country] {
         let visitedCodes = Set(visitedCountries.map { $0.alpha2 })
         let available = Country.allCountries.filter { !visitedCodes.contains($0.alpha2) }
-        
+
         if searchQuery.isEmpty {
             return available
         } else {
@@ -74,12 +74,12 @@ struct AddCountryView: View {
 struct AddCountryDetailsView: View {
     @Environment(\.modelContext) private var modelContext
     @Environment(\.dismiss) private var dismiss
-    
+
     let country: Country
-    
+
     @State private var dateVisited = Date()
     @State private var notes = ""
-    
+
     var body: some View {
         Form {
             Section {
@@ -90,7 +90,7 @@ struct AddCountryDetailsView: View {
                         .background(Color(.secondarySystemBackground))
                         .clipShape(RoundedRectangle(cornerRadius: 16))
                         .shadow(color: Color.black.opacity(0.05), radius: 5, x: 0, y: 2)
-                    
+
                     VStack(alignment: .leading, spacing: 6) {
                         Text(country.name)
                             .font(.title2)
@@ -104,11 +104,11 @@ struct AddCountryDetailsView: View {
                 .padding(.vertical, 8)
                 .listRowBackground(Color.clear)
             }
-            
+
             Section(header: Text("Travel Details")) {
                 DatePicker("First Visited", selection: $dateVisited, in: ...Date(), displayedComponents: .date)
             }
-            
+
             Section(header: Text("Travel Notes (Optional)")) {
                 TextField("What did you do there? Favorite places?", text: $notes, axis: .vertical)
                     .lineLimit(3...8)
@@ -125,7 +125,7 @@ struct AddCountryDetailsView: View {
             }
         }
     }
-    
+
     private func saveVisit() {
         let visited = VisitedCountry(
             alpha2: country.alpha2,
@@ -133,7 +133,7 @@ struct AddCountryDetailsView: View {
             notes: notes
         )
         modelContext.insert(visited)
-        
+
         // Post a notification or dismiss. Since we want to dismiss the entire sheet,
         // and dismiss() on a detail view in a presented NavigationStack might only pop the view,
         // wait! In SwiftUI, calling dismiss() on a view inside a sheet presented stack will dismiss the *sheet* itself!

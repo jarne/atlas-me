@@ -252,6 +252,6 @@ extension Country {
         Country(name: "Yemen", alpha2: "YE", alpha3: "YEM", latitude: 15, longitude: 48),
         Country(name: "Zambia", alpha2: "ZM", alpha3: "ZMB", latitude: -15, longitude: 30),
         Country(name: "Zimbabwe", alpha2: "ZW", alpha3: "ZWE", latitude: -20, longitude: 30),
-        Country(name: "Afghanistan", alpha2: "AF", alpha3: "AFG", latitude: 33, longitude: 65),
+        Country(name: "Afghanistan", alpha2: "AF", alpha3: "AFG", latitude: 33, longitude: 65)
     ]
 }

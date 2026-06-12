@@ -10,7 +10,7 @@ import SwiftData
 
 struct OverviewView: View {
     @Query private var visitedCountries: [VisitedCountry]
-    
+
     var body: some View {
         NavigationStack {
             ScrollView {
@@ -18,7 +18,7 @@ struct OverviewView: View {
                     let totalOfficial = Country.allCountries.count
                     let visitedCount = visitedCountries.count
                     let percentage = totalOfficial > 0 ? (Double(visitedCount) / Double(totalOfficial)) * 100.0 : 0.0
-                    
+
                     // Main Explorer Card
                     VStack(alignment: .leading, spacing: 12) {
                         HStack {
@@ -28,7 +28,7 @@ struct OverviewView: View {
                                     .fontWeight(.bold)
                                     .foregroundColor(.white.opacity(0.8))
                                     .tracking(1.5)
-                                
+
                                 HStack(alignment: .firstTextBaseline, spacing: 6) {
                                     Text("\(visitedCount)")
                                         .font(.system(size: 40, weight: .bold, design: .rounded))
@@ -37,24 +37,24 @@ struct OverviewView: View {
                                         .foregroundColor(.white.opacity(0.8))
                                 }
                             }
-                            
+
                             Spacer()
-                            
+
                             // Globe badge
                             Image(systemName: "globe.europe.africa.fill")
                                 .font(.system(size: 44))
                                 .foregroundColor(.white.opacity(0.9))
                         }
-                        
+
                         VStack(alignment: .leading, spacing: 6) {
                             HStack {
                                 Text("\(percentage, specifier: "%.1f")% of the world visited")
                                     .font(.subheadline)
                                     .fontWeight(.semibold)
-                                
+
                                 Spacer()
                             }
-                            
+
                             ProgressView(value: percentage, total: 100.0)
                                 .tint(.white)
                                 .background(Color.white.opacity(0.4))
@@ -74,13 +74,13 @@ struct OverviewView: View {
                             )
                             .shadow(color: Color.accent.opacity(0.3), radius: 10, x: 0, y: 5)
                     )
-                    
+
                     // Detailed Breakdown Section
                     VStack(alignment: .leading, spacing: 12) {
                         Text("Stats Breakdown")
                             .font(.title3)
                             .fontWeight(.bold)
-                        
+
                         HStack(spacing: 16) {
                             StatMiniCard(
                                 title: "Total Visits",
@@ -88,7 +88,7 @@ struct OverviewView: View {
                                 icon: "airplane",
                                 color: .blue
                             )
-                            
+
                             StatMiniCard(
                                 title: "Remaining",
                                 value: "\(max(0, totalOfficial - visitedCount))",
@@ -110,7 +110,7 @@ struct StatMiniCard: View {
     let value: String
     let icon: String
     let color: Color
-    
+
     var body: some View {
         HStack(spacing: 12) {
             Image(systemName: icon)
@@ -119,7 +119,7 @@ struct StatMiniCard: View {
                 .padding(12)
                 .background(color.opacity(0.1))
                 .clipShape(Circle())
-            
+
             VStack(alignment: .leading, spacing: 2) {
                 Text(title)
                     .font(.caption)
@@ -139,7 +139,7 @@ struct StatMiniCard: View {
 #Preview {
     let config = ModelConfiguration(isStoredInMemoryOnly: true)
     let container = try! ModelContainer(for: VisitedCountry.self, configurations: config)
-    
+
     // Seed some mock data for preview
     let sample = VisitedCountry(
         alpha2: "FR",
@@ -147,7 +147,7 @@ struct StatMiniCard: View {
         notes: "Visited Paris, saw the Eiffel Tower!"
     )
     container.mainContext.insert(sample)
-    
+
     return OverviewView()
         .modelContainer(container)
         .padding()

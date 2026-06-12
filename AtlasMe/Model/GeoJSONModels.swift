@@ -29,16 +29,16 @@ nonisolated struct GeoJSONProperties: Decodable {
 nonisolated struct GeoJSONGeometry: Decodable {
     let type: String
     let coordinates: GeoJSONCoordinates
-    
+
     enum CodingKeys: String, CodingKey {
         case type
         case coordinates
     }
-    
+
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         type = try container.decode(String.self, forKey: .type)
-        
+
         switch type {
         case "Polygon":
             let coords = try container.decode([[[Double]]].self, forKey: .coordinates)

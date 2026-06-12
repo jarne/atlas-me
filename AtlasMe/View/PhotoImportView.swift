@@ -13,27 +13,27 @@ import SwiftData
 struct PhotoImportView: View {
     @Environment(\.modelContext) private var modelContext
     @Environment(\.dismiss) private var dismiss
-    
+
     @StateObject private var importManager = PhotoImportManager()
-    
+
     var body: some View {
         NavigationStack {
             VStack(spacing: 24) {
                 Spacer()
-                
+
                 // Top Visual Badge
                 statusIconSection
-                
+
                 // Dynamic Status & Text Section
                 statusContentSection
-                
+
                 Spacer()
-                
+
                 // Progress Bar (Visible during import)
                 if importManager.status == .importing {
                     progressSection
                 }
-                
+
                 // Action Buttons
                 actionButtonSection
                     .padding(.bottom, 24)
@@ -55,7 +55,7 @@ struct PhotoImportView: View {
             }
         }
     }
-    
+
     // Check if the current state is finished or completed
     private var isFinishedState: Bool {
         switch importManager.status {
@@ -65,9 +65,9 @@ struct PhotoImportView: View {
             return false
         }
     }
-    
+
     // MARK: - Subviews
-    
+
     @ViewBuilder
     private var statusIconSection: some View {
         ZStack {
@@ -81,13 +81,13 @@ struct PhotoImportView: View {
                     )
                 )
                 .frame(width: 160, height: 160)
-            
+
             // Icon Background
             Circle()
                 .fill(Color(.secondarySystemBackground))
                 .frame(width: 120, height: 120)
                 .shadow(color: Color.black.opacity(0.05), radius: 10, x: 0, y: 5)
-            
+
             // State-based Icon
             Group {
                 switch importManager.status {
@@ -128,7 +128,7 @@ struct PhotoImportView: View {
             .transition(.scale.combined(with: .opacity))
         }
     }
-    
+
     @ViewBuilder
     private var statusContentSection: some View {
         VStack(spacing: 12) {
@@ -137,47 +137,47 @@ struct PhotoImportView: View {
                 Text("Discover Visited Countries")
                     .font(.title2)
                     .bold()
-                
+
                 Text("Scan the location metadata in your photo library to automatically add the countries you've travelled to, set with the date you visited them.")
                     .font(.body)
                     .foregroundColor(.secondary)
                     .multilineTextAlignment(.center)
                     .padding(.horizontal, 8)
-                
+
                 privacyCard
                     .padding(.top, 8)
-                
+
             case .requestingAuthorization:
                 Text("Accessing Photos...")
                     .font(.headline)
                 Text("Please authorize photo access if prompted.")
                     .font(.subheadline)
                     .foregroundColor(.secondary)
-                
+
             case .denied:
                 Text("Photo Access Denied")
                     .font(.title2)
                     .bold()
                     .foregroundColor(.red)
-                
+
                 Text("To automatically import countries, please grant photo library access in Settings.")
                     .font(.body)
                     .foregroundColor(.secondary)
                     .multilineTextAlignment(.center)
                     .padding(.horizontal, 8)
-                
+
             case .loadingBorders:
                 Text("Preparing Country Data...")
                     .font(.headline)
                 Text("Loading global geography coordinates for offline lookup.")
                     .font(.subheadline)
                     .foregroundColor(.secondary)
-                
+
             case .importing:
                 Text("Scanning Your Photos...")
                     .font(.title2)
                     .bold()
-                
+
                 HStack(spacing: 8) {
                     Text("Processed: **\(importManager.processedCount) / \(importManager.totalCount)**")
                     Text("•")
@@ -186,12 +186,12 @@ struct PhotoImportView: View {
                 }
                 .font(.subheadline)
                 .foregroundColor(.secondary)
-                
+
             case .completed(let count):
                 Text("Import Complete!")
                     .font(.title2)
                     .bold()
-                
+
                 if count > 0 {
                     Text("Successfully added **\(count)** new countries to your travels list.")
                         .font(.body)
@@ -205,12 +205,12 @@ struct PhotoImportView: View {
                         .multilineTextAlignment(.center)
                         .padding(.horizontal, 16)
                 }
-                
+
             case .noPhotosWithLocation:
                 Text("No Geotagged Photos")
                     .font(.title2)
                     .bold()
-                
+
                 Text("We couldn't find any photos with location coordinates in your library. Make sure location services are enabled for your camera.")
                     .font(.body)
                     .foregroundColor(.secondary)
@@ -220,13 +220,13 @@ struct PhotoImportView: View {
         }
         .animation(.easeInOut, value: importManager.status)
     }
-    
+
     private var privacyCard: some View {
         HStack(alignment: .top, spacing: 12) {
             Image(systemName: "hand.raised.fill")
                 .font(.title3)
                 .foregroundColor(.accent)
-            
+
             VStack(alignment: .leading, spacing: 4) {
                 Text("100% Private & Secure")
                     .font(.subheadline)
@@ -240,13 +240,13 @@ struct PhotoImportView: View {
         .background(Color(.secondarySystemBackground))
         .clipShape(RoundedRectangle(cornerRadius: 16))
     }
-    
+
     private var progressSection: some View {
         VStack(spacing: 8) {
             ProgressView(value: importManager.progress, total: 1.0)
                 .progressViewStyle(.linear)
                 .tint(Color("SecondaryColor"))
-            
+
             Text("\(Int(importManager.progress * 100))%")
                 .font(.caption)
                 .bold()
@@ -255,7 +255,7 @@ struct PhotoImportView: View {
         .padding(.horizontal, 16)
         .transition(.opacity)
     }
-    
+
     @ViewBuilder
     private var actionButtonSection: some View {
         Group {
@@ -284,10 +284,10 @@ struct PhotoImportView: View {
                     )
                     .clipShape(RoundedRectangle(cornerRadius: 14))
                 }
-                
+
             case .requestingAuthorization, .loadingBorders, .importing:
                 EmptyView()
-                
+
             case .denied:
                 Button {
                     if let url = URL(string: UIApplication.openSettingsURLString) {
@@ -305,7 +305,7 @@ struct PhotoImportView: View {
                     .background(Color.accent)
                     .clipShape(RoundedRectangle(cornerRadius: 14))
                 }
-                
+
             case .completed, .noPhotosWithLocation:
                 Button {
                     dismiss()

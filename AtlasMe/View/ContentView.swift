@@ -11,7 +11,7 @@ import SwiftData
 
 struct ContentView: View {
     @State private var selectedTab = 0
-    
+
     var body: some View {
         TabView(selection: $selectedTab) {
             OverviewView()
@@ -19,13 +19,13 @@ struct ContentView: View {
                     Label("Overview", systemImage: "chart.bar.fill")
                 }
                 .tag(0)
-            
+
             TravelListView()
                 .tabItem {
                     Label("Travels", systemImage: "airplane.circle.fill")
                 }
                 .tag(1)
-            
+
             TravelMapView()
                 .tabItem {
                     Label("Map", systemImage: "map.fill")
@@ -39,7 +39,7 @@ struct ContentView: View {
 #Preview {
     let config = ModelConfiguration(isStoredInMemoryOnly: true)
     let container = try! ModelContainer(for: VisitedCountry.self, configurations: config)
-    
+
     // Seed some mock data for preview
     let sample = VisitedCountry(
         alpha2: "FR",
@@ -47,7 +47,7 @@ struct ContentView: View {
         notes: "Visited Paris, saw the Eiffel Tower!"
     )
     container.mainContext.insert(sample)
-    
+
     return ContentView()
         .modelContainer(container)
 }

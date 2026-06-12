@@ -15,9 +15,9 @@ struct Country: Identifiable, Codable, Hashable {
     let alpha3: String
     let latitude: Double
     let longitude: Double
-    
+
     var flagEmoji: String {
-        let base : UInt32 = 127397
+        let base: UInt32 = 127397
         var s = ""
         for v in alpha2.uppercased().unicodeScalars {
             if let scalar = UnicodeScalar(base + v.value) {

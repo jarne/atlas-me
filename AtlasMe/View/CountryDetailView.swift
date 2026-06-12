@@ -13,11 +13,11 @@ import SwiftData
 struct CountryDetailView: View {
     @Environment(\.modelContext) private var modelContext
     @Environment(\.dismiss) private var dismiss
-    
+
     @Bindable var visitedCountry: VisitedCountry
-    
+
     @State private var showingDeleteConfirmation = false
-    
+
     var body: some View {
         Form {
             Section {
@@ -28,12 +28,12 @@ struct CountryDetailView: View {
                         .background(Color(.secondarySystemBackground))
                         .clipShape(RoundedRectangle(cornerRadius: 24))
                         .shadow(color: Color.black.opacity(0.08), radius: 8, x: 0, y: 4)
-                    
+
                     Text(visitedCountry.name)
                         .font(.title)
                         .bold()
                         .multilineTextAlignment(.center)
-                    
+
                     Text("ISO: \(visitedCountry.alpha2) | \(visitedCountry.alpha3)")
                         .font(.subheadline)
                         .foregroundColor(.secondary)
@@ -42,7 +42,7 @@ struct CountryDetailView: View {
                 .padding(.vertical, 12)
                 .listRowBackground(Color.clear)
             }
-            
+
             Section(header: Text("Map Location")) {
                 Map(initialPosition: .region(MKCoordinateRegion(
                     center: CLLocationCoordinate2D(latitude: visitedCountry.latitude, longitude: visitedCountry.longitude),
@@ -54,16 +54,16 @@ struct CountryDetailView: View {
                 .clipShape(RoundedRectangle(cornerRadius: 12))
                 .listRowInsets(EdgeInsets())
             }
-            
+
             Section(header: Text("Travel Details")) {
                 DatePicker("First Visited", selection: $visitedCountry.dateVisited, in: ...Date(), displayedComponents: .date)
             }
-            
+
             Section(header: Text("Travel Notes")) {
                 TextField("What did you do there?", text: $visitedCountry.notes, axis: .vertical)
                     .lineLimit(3...8)
             }
-            
+
             Section {
                 Button(role: .destructive) {
                     showingDeleteConfirmation = true
@@ -92,7 +92,7 @@ struct CountryDetailView: View {
             Text("This will permanently remove \(visitedCountry.name) from your travelled list.")
         }
     }
-    
+
     private func deleteVisit() {
         modelContext.delete(visitedCountry)
         dismiss()

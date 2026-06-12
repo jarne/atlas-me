@@ -12,17 +12,17 @@ import SwiftData
 
 struct TravelMapView: View {
     @Query private var visitedCountries: [VisitedCountry]
-    
+
     @State private var position: MapCameraPosition = .automatic
-    @State private var selectedCountry: VisitedCountry? = nil
+    @State private var selectedCountry: VisitedCountry?
     @State private var isShowingDetail = false
-    
+
     @StateObject private var borderLoader = CountryBorderLoader.shared
-    
+
     private var visitedAlpha2s: Set<String> {
         Set(visitedCountries.map { $0.alpha2.uppercased() })
     }
-    
+
     private var mask: MKPolygon? {
         let worldCoordinates = [
             CLLocationCoordinate2D(latitude: 90, longitude: 0),
@@ -32,17 +32,17 @@ struct TravelMapView: View {
             CLLocationCoordinate2D(latitude: -90, longitude: -180),
             CLLocationCoordinate2D(latitude: 90, longitude: -180)
         ]
-        
+
         var visitedPolygons: [MKPolygon] = []
         for alpha2 in visitedAlpha2s {
             if let countryPolygons = borderLoader.borders[alpha2] {
                 visitedPolygons.append(contentsOf: countryPolygons)
             }
         }
-        
+
         return MKPolygon(coordinates: worldCoordinates, count: worldCoordinates.count, interiorPolygons: visitedPolygons.isEmpty ? nil : visitedPolygons)
     }
-    
+
     var body: some View {
         NavigationStack {
             ZStack(alignment: .top) {
@@ -55,19 +55,19 @@ struct TravelMapView: View {
                         MapPolygon(m)
                             .foregroundStyle(Color.black.opacity(0.4))
                     }
-                    
+
                     // 2. Draw highlight strokes only for visited countries
                     ForEach(borderLoader.borders.keys.sorted().filter { visitedAlpha2s.contains($0) }, id: \.self) { alpha2 in
                         let isSelected = selectedCountry?.alpha2.uppercased() == alpha2
                         let polygons = borderLoader.borders[alpha2] ?? []
-                        
+
                         ForEach(0..<polygons.count, id: \.self) { index in
                             MapPolygon(polygons[index])
                                 .foregroundStyle(Color.clear)
                                 .stroke(isSelected ? Color.accent : Color.clear, lineWidth: 3)
                         }
                     }
-                    
+
                     ForEach(visitedCountries) { country in
                         Annotation(country.name, coordinate: CLLocationCoordinate2D(latitude: country.latitude, longitude: country.longitude)) {
                             VStack(spacing: 4) {
@@ -90,7 +90,7 @@ struct TravelMapView: View {
                 }
                 .mapStyle(.standard(elevation: .realistic))
                 .ignoresSafeArea(edges: .horizontal)
-                
+
                 // Top Empty State Hint
                 if visitedCountries.isEmpty {
                     Text("No visited countries yet. Add some in the Travels tab!")
@@ -103,7 +103,7 @@ struct TravelMapView: View {
                         .shadow(color: Color.black.opacity(0.1), radius: 5, x: 0, y: 2)
                         .padding(.top, 16)
                 }
-                
+
                 // Bottom Info Card when a country is selected
                 VStack {
                     Spacer()
@@ -139,12 +139,12 @@ struct TravelMapView: View {
             }
         }
     }
-    
+
     private var isSelectedCountryValid: Bool {
         guard let selected = selectedCountry else { return false }
         return visitedCountries.contains { $0.id == selected.id }
     }
-    
+
     private func selectedCountryCard(_ country: VisitedCountry) -> some View {
         HStack(spacing: 16) {
             Text(country.flagEmoji)
@@ -152,15 +152,15 @@ struct TravelMapView: View {
                 .padding(10)
                 .background(Color(.secondarySystemBackground))
                 .clipShape(RoundedRectangle(cornerRadius: 12))
-            
+
             VStack(alignment: .leading, spacing: 4) {
                 Text(country.name)
                     .font(.headline)
-                
+
                 Text("Visited \(country.dateVisited, format: Date.FormatStyle(date: .abbreviated))")
                     .font(.caption)
                     .foregroundColor(.secondary)
-                
+
                 if !country.notes.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
                     Text(country.notes)
                         .font(.footnote)
@@ -168,9 +168,9 @@ struct TravelMapView: View {
                         .lineLimit(1)
                 }
             }
-            
+
             Spacer()
-            
+
             Button {
                 isShowingDetail = true
             } label: {
@@ -179,7 +179,7 @@ struct TravelMapView: View {
                     .foregroundColor(.accent)
             }
             .buttonStyle(.plain)
-            
+
             Button {
                 withAnimation {
                     selectedCountry = nil
@@ -199,4 +199,3 @@ struct TravelMapView: View {
         )
     }
 }
-
