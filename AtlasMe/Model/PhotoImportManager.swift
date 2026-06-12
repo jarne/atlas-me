@@ -12,6 +12,7 @@ import Photos
 import SwiftData
 import CoreLocation
 import Combine
+import MapKit
 
 @MainActor
 class PhotoImportManager: ObservableObject {
@@ -55,106 +56,124 @@ class PhotoImportManager: ObservableObject {
     }
 
     private func processPhotos() {
-        guard let modelContext = modelContext else { return }
+        guard modelContext != nil else { return }
         status = .loadingBorders
         progress = 0.0
         processedCount = 0
         totalCount = 0
         importedCountriesCount = 0
 
-        // Retrieve existing codes on MainActor first
-        let descriptor = FetchDescriptor<VisitedCountry>()
-        let visited = try? modelContext.fetch(descriptor)
-        let existingCodes = Set(visited?.map { $0.alpha2.uppercased() } ?? [])
+        let existingCodes = fetchExistingCountryCodes()
 
         Task {
-            // 1. Ensure borders are loaded
-            if CountryBorderLoader.shared.borders.isEmpty {
-                CountryBorderLoader.shared.loadBordersIfNeeded()
-                while CountryBorderLoader.shared.isLoading {
-                    try? await Task.sleep(nanoseconds: 50_000_000) // 50ms sleep
-                }
-            }
-
-            let borders = CountryBorderLoader.shared.borders
-            guard !borders.isEmpty else {
+            guard let borders = await ensureBordersLoaded() else {
                 self.status = .completed(importedCount: 0)
                 return
             }
 
             self.status = .importing
 
-            // 2. Perform photolibrary scan in detached background task
-            let result = await Task.detached(priority: .userInitiated) {
-    () -> (imports: [(alpha2: String, date: Date)], totalCount: Int, photosWithLocationCount: Int) in
-                let options = PHFetchOptions()
-                options.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: true)]
-                let assets = PHAsset.fetchAssets(with: .image, options: options)
-
-                let count = assets.count
-                guard count > 0 else {
-                    return ([], 0, 0)
-                }
-
-                Task { @MainActor in
-                    self.totalCount = count
-                }
-
-                var visitedSet = existingCodes
-                var newlyImportedSet: Set<String> = []
-                var importsToSave: [(alpha2: String, date: Date)] = []
-                var photosWithLocationCount = 0
-
-                for assetI in 0..<count {
-                    let asset = assets.object(at: assetI)
-                    if let location = asset.location, let date = asset.creationDate {
-                        photosWithLocationCount += 1
-                        let coord = location.coordinate
-                        if let alpha2 = CountryBorderLoader.countryCode(for: coord, in: borders) {
-                            let upperAlpha2 = alpha2.uppercased()
-                            if !visitedSet.contains(upperAlpha2) {
-                                visitedSet.insert(upperAlpha2)
-                                newlyImportedSet.insert(upperAlpha2)
-                                importsToSave.append((alpha2: upperAlpha2, date: date))
-                            }
-                        }
-                    }
-
-                    // Throttle MainActor UI updates
-                    if assetI % 10 == 0 || assetI == count - 1 {
-                        let progressVal = Double(assetI + 1) / Double(count)
-                        let processedVal = assetI + 1
-                        let importedVal = newlyImportedSet.count
-
-                        Task { @MainActor in
-                            self.progress = progressVal
-                            self.processedCount = processedVal
-                            self.importedCountriesCount = importedVal
-                        }
-                    }
-                }
-
-                return (importsToSave, count, photosWithLocationCount)
-            }.value
+            let result = await scanPhotoLibrary(existingCodes: existingCodes, borders: borders)
 
             if result.totalCount == 0 || result.photosWithLocationCount == 0 {
                 self.status = .noPhotosWithLocation
                 return
             }
 
-            // 3. Batch insert new countries on MainActor
-            for importData in result.imports {
-                let newVisited = VisitedCountry(
-                    alpha2: importData.alpha2,
-                    dateVisited: importData.date,
-                    notes: String(localized: "Imported from Photo Library")
-                )
-                modelContext.insert(newVisited)
-            }
-
-            try? modelContext.save()
+            saveImportedCountries(result.imports)
             self.status = .completed(importedCount: result.imports.count)
         }
+    }
+
+    private func fetchExistingCountryCodes() -> Set<String> {
+        guard let modelContext = modelContext else { return [] }
+        let descriptor = FetchDescriptor<VisitedCountry>()
+        let visited = try? modelContext.fetch(descriptor)
+        return Set(visited?.map { $0.alpha2.uppercased() } ?? [])
+    }
+
+    private func ensureBordersLoaded() async -> [String: [MKPolygon]]? {
+        if CountryBorderLoader.shared.borders.isEmpty {
+            CountryBorderLoader.shared.loadBordersIfNeeded()
+            while CountryBorderLoader.shared.isLoading {
+                try? await Task.sleep(nanoseconds: 50_000_000) // 50ms sleep
+            }
+        }
+        let borders = CountryBorderLoader.shared.borders
+        return borders.isEmpty ? nil : borders
+    }
+
+    private func scanPhotoLibrary(
+        existingCodes: Set<String>,
+        borders: [String: [MKPolygon]]
+    ) async -> (imports: [(alpha2: String, date: Date)], totalCount: Int, photosWithLocationCount: Int) {
+        await Task.detached(priority: .userInitiated) { [weak self] in
+            let options = PHFetchOptions()
+            options.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: true)]
+            let assets = PHAsset.fetchAssets(with: .image, options: options)
+
+            let count = assets.count
+            guard count > 0 else {
+                return ([], 0, 0)
+            }
+
+            if let self {
+                await MainActor.run {
+                    self.totalCount = count
+                }
+            }
+
+            var visitedSet = existingCodes
+            var newlyImportedSet: Set<String> = []
+            var importsToSave: [(alpha2: String, date: Date)] = []
+            var photosWithLocationCount = 0
+
+            for assetI in 0..<count {
+                let asset = assets.object(at: assetI)
+                if let location = asset.location, let date = asset.creationDate {
+                    photosWithLocationCount += 1
+                    let coord = location.coordinate
+                    if let alpha2 = CountryBorderLoader.countryCode(for: coord, in: borders) {
+                        let upperAlpha2 = alpha2.uppercased()
+                        if !visitedSet.contains(upperAlpha2) {
+                            visitedSet.insert(upperAlpha2)
+                            newlyImportedSet.insert(upperAlpha2)
+                            importsToSave.append((alpha2: upperAlpha2, date: date))
+                        }
+                    }
+                }
+
+                // Throttle MainActor UI updates
+                if assetI % 10 == 0 || assetI == count - 1 {
+                    let progressVal = Double(assetI + 1) / Double(count)
+                    let processedVal = assetI + 1
+                    let importedVal = newlyImportedSet.count
+
+                    if let self {
+                        await MainActor.run {
+                            self.progress = progressVal
+                            self.processedCount = processedVal
+                            self.importedCountriesCount = importedVal
+                        }
+                    }
+                }
+            }
+
+            return (importsToSave, count, photosWithLocationCount)
+        }.value
+    }
+
+    private func saveImportedCountries(_ imports: [(alpha2: String, date: Date)]) {
+        guard let modelContext = modelContext else { return }
+        for importData in imports {
+            let newVisited = VisitedCountry(
+                alpha2: importData.alpha2,
+                dateVisited: importData.date,
+                notes: String(localized: "Imported from Photo Library")
+            )
+            modelContext.insert(newVisited)
+        }
+        try? modelContext.save()
     }
 
     func reset() {
