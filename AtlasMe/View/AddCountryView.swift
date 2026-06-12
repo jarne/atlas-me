@@ -20,24 +20,9 @@ struct AddCountryView: View {
     var body: some View {
         NavigationStack {
             List(filteredCountries) { country in
-                NavigationLink(value: country) {
-                    HStack(spacing: 16) {
-                        Text(country.flagEmoji)
-                            .font(.system(size: 32))
-                            .padding(8)
-                            .background(Color(.secondarySystemBackground))
-                            .clipShape(RoundedRectangle(cornerRadius: 10))
-
-                        VStack(alignment: .leading, spacing: 4) {
-                            Text(country.name)
-                                .font(.headline)
-                            Text("ISO: \(country.alpha2)")
-                                .font(.caption)
-                                .foregroundColor(.secondary)
-                        }
-                    }
-                    .padding(.vertical, 4)
-                }
+                                NavigationLink(value: country) {
+                                    CountrySearchRow(country: country)
+                                }
             }
             .navigationTitle("Add Country")
             .navigationBarTitleDisplayMode(.inline)
@@ -145,5 +130,28 @@ struct AddCountryDetailsView: View {
         // Let's verify: yes, calling dismiss() in AddCountryDetailsView dismisses
         // the entire sheet. That is exactly what we want.
         dismiss()
+    }
+}
+
+struct CountrySearchRow: View {
+    let country: Country
+
+    var body: some View {
+        HStack(spacing: 16) {
+            Text(country.flagEmoji)
+                .font(.system(size: 32))
+                .padding(8)
+                .background(Color(.secondarySystemBackground))
+                .clipShape(RoundedRectangle(cornerRadius: 10))
+
+            VStack(alignment: .leading, spacing: 4) {
+                Text(country.name)
+                    .font(.headline)
+                Text("ISO: \(country.alpha2)")
+                    .font(.caption)
+                    .foregroundColor(.secondary)
+            }
+        }
+        .padding(.vertical, 4)
     }
 }

@@ -69,30 +69,7 @@ struct TravelListView: View {
                         Section {
                             ForEach(sortedAndFilteredCountries) { country in
                                 NavigationLink(destination: CountryDetailView(visitedCountry: country)) {
-                                    HStack(spacing: 16) {
-                                        Text(country.flagEmoji)
-                                            .font(.system(size: 36))
-                                            .padding(8)
-                                            .background(Color(.secondarySystemBackground))
-                                            .clipShape(RoundedRectangle(cornerRadius: 12))
-
-                                        VStack(alignment: .leading, spacing: 4) {
-                                            Text(country.name)
-                                                .font(.headline)
-
-                                            Text("Visited \(country.dateVisited, format: Date.FormatStyle(date: .abbreviated))")
-                                                .font(.caption)
-                                                .foregroundColor(.secondary)
-
-                                            if !country.notes.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-                                                Text(country.notes)
-                                                    .font(.footnote)
-                                                    .foregroundColor(.secondary)
-                                                    .lineLimit(1)
-                                            }
-                                        }
-                                    }
-                                    .padding(.vertical, 4)
+                                    VisitedCountryRow(country: country)
                                 }
                             }
                             .onDelete(perform: deleteVisitedCountries)
@@ -170,5 +147,36 @@ struct TravelListView: View {
                 modelContext.delete(countryToDelete)
             }
         }
+    }
+}
+
+struct VisitedCountryRow: View {
+    let country: VisitedCountry
+
+    var body: some View {
+        HStack(spacing: 16) {
+            Text(country.flagEmoji)
+                .font(.system(size: 36))
+                .padding(8)
+                .background(Color(.secondarySystemBackground))
+                .clipShape(RoundedRectangle(cornerRadius: 12))
+
+            VStack(alignment: .leading, spacing: 4) {
+                Text(country.name)
+                    .font(.headline)
+
+                Text("Visited \(country.dateVisited, format: Date.FormatStyle(date: .abbreviated))")
+                    .font(.caption)
+                    .foregroundColor(.secondary)
+
+                if !country.notes.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+                    Text(country.notes)
+                        .font(.footnote)
+                        .foregroundColor(.secondary)
+                        .lineLimit(1)
+                }
+            }
+        }
+        .padding(.vertical, 4)
     }
 }

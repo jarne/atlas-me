@@ -112,12 +112,20 @@ struct TravelMapView: View {
                 VStack {
                     Spacer()
                     if let selected = selectedCountry {
-                        selectedCountryCard(selected)
-                            .transition(.asymmetric(
-                                insertion: .move(edge: .bottom).combined(with: .opacity),
-                                removal: .move(edge: .bottom).combined(with: .opacity)
-                            ))
-                            .padding()
+                        SelectedCountryCard(
+                            country: selected,
+                            onShowDetail: { isShowingDetail = true },
+                            onDismiss: {
+                                withAnimation {
+                                    selectedCountry = nil
+                                }
+                            }
+                        )
+                        .transition(.asymmetric(
+                            insertion: .move(edge: .bottom).combined(with: .opacity),
+                            removal: .move(edge: .bottom).combined(with: .opacity)
+                        ))
+                        .padding()
                     }
                 }
             }
@@ -149,7 +157,14 @@ struct TravelMapView: View {
         return visitedCountries.contains { $0.id == selected.id }
     }
 
-    private func selectedCountryCard(_ country: VisitedCountry) -> some View {
+}
+
+struct SelectedCountryCard: View {
+    let country: VisitedCountry
+    let onShowDetail: () -> Void
+    let onDismiss: () -> Void
+
+    var body: some View {
         HStack(spacing: 16) {
             Text(country.flagEmoji)
                 .font(.system(size: 40))
@@ -176,7 +191,7 @@ struct TravelMapView: View {
             Spacer()
 
             Button {
-                isShowingDetail = true
+                onShowDetail()
             } label: {
                 Image(systemName: "arrow.right.circle.fill")
                     .font(.title)
@@ -185,9 +200,7 @@ struct TravelMapView: View {
             .buttonStyle(.plain)
 
             Button {
-                withAnimation {
-                    selectedCountry = nil
-                }
+                onDismiss()
             } label: {
                 Image(systemName: "xmark.circle.fill")
                     .font(.title)

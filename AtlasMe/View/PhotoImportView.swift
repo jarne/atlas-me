@@ -22,21 +22,37 @@ struct PhotoImportView: View {
                 Spacer()
 
                 // Top Visual Badge
-                statusIconSection
+                ImportStatusIconView(status: importManager.status)
 
                 // Dynamic Status & Text Section
-                statusContentSection
+                ImportStatusContentView(
+                    status: importManager.status,
+                    processedCount: importManager.processedCount,
+                    totalCount: importManager.totalCount,
+                    importedCountriesCount: importManager.importedCountriesCount
+                )
 
                 Spacer()
 
                 // Progress Bar (Visible during import)
                 if importManager.status == .importing {
-                    progressSection
+                    ImportProgressView(progress: importManager.progress)
                 }
 
                 // Action Buttons
-                actionButtonSection
-                    .padding(.bottom, 24)
+                ImportActionsView(
+                    status: importManager.status,
+                    onStartImport: {
+                        withAnimation {
+                            importManager.modelContext = modelContext
+                            importManager.startImport()
+                        }
+                    },
+                    onDone: {
+                        dismiss()
+                    }
+                )
+                .padding(.bottom, 24)
             }
             .padding(.horizontal, 24)
             .navigationTitle("Import from Photos")
@@ -65,11 +81,14 @@ struct PhotoImportView: View {
             return false
         }
     }
+}
 
-    // MARK: - Subviews
+// MARK: - Subviews
 
-    @ViewBuilder
-    private var statusIconSection: some View {
+struct ImportStatusIconView: View {
+    let status: PhotoImportManager.ImportStatus
+
+    var body: some View {
         ZStack {
             // Background Glow/Shadow
             Circle()
@@ -90,7 +109,7 @@ struct PhotoImportView: View {
 
             // State-based Icon
             Group {
-                switch importManager.status {
+                switch status {
                 case .idle:
                     Image(systemName: "photo.badge.plus")
                         .font(.system(size: 50))
@@ -128,11 +147,17 @@ struct PhotoImportView: View {
             .transition(.scale.combined(with: .opacity))
         }
     }
+}
 
-    @ViewBuilder
-    private var statusContentSection: some View {
+struct ImportStatusContentView: View {
+    let status: PhotoImportManager.ImportStatus
+    let processedCount: Int
+    let totalCount: Int
+    let importedCountriesCount: Int
+
+    var body: some View {
         VStack(spacing: 12) {
-            switch importManager.status {
+            switch status {
             case .idle:
                 Text("Discover Visited Countries")
                     .font(.title2)
@@ -147,7 +172,7 @@ struct PhotoImportView: View {
                     .multilineTextAlignment(.center)
                     .padding(.horizontal, 8)
 
-                privacyCard
+                PrivacyCard()
                     .padding(.top, 8)
 
             case .requestingAuthorization:
@@ -182,10 +207,10 @@ struct PhotoImportView: View {
                     .bold()
 
                 HStack(spacing: 8) {
-                    Text("Processed: **\(importManager.processedCount) / \(importManager.totalCount)**")
+                    Text("Processed: **\(processedCount) / \(totalCount)**")
                     Text("•")
                         .foregroundColor(.secondary)
-                    Text("Found: **\(importManager.importedCountriesCount) new**")
+                    Text("Found: **\(importedCountriesCount) new**")
                 }
                 .font(.subheadline)
                 .foregroundColor(.secondary)
@@ -224,10 +249,12 @@ struct PhotoImportView: View {
                     .padding(.horizontal, 16)
             }
         }
-        .animation(.easeInOut, value: importManager.status)
+        .animation(.easeInOut, value: status)
     }
+}
 
-    private var privacyCard: some View {
+struct PrivacyCard: View {
+    var body: some View {
         HStack(alignment: .top, spacing: 12) {
             Image(systemName: "hand.raised.fill")
                 .font(.title3)
@@ -249,14 +276,18 @@ struct PhotoImportView: View {
         .background(Color(.secondarySystemBackground))
         .clipShape(RoundedRectangle(cornerRadius: 16))
     }
+}
 
-    private var progressSection: some View {
+struct ImportProgressView: View {
+    let progress: Double
+
+    var body: some View {
         VStack(spacing: 8) {
-            ProgressView(value: importManager.progress, total: 1.0)
+            ProgressView(value: progress, total: 1.0)
                 .progressViewStyle(.linear)
                 .tint(Color("SecondaryColor"))
 
-            Text("\(Int(importManager.progress * 100))%")
+            Text("\(Int(progress * 100))%")
                 .font(.caption)
                 .bold()
                 .foregroundColor(.secondary)
@@ -264,17 +295,19 @@ struct PhotoImportView: View {
         .padding(.horizontal, 16)
         .transition(.opacity)
     }
+}
 
-    @ViewBuilder
-    private var actionButtonSection: some View {
+struct ImportActionsView: View {
+    let status: PhotoImportManager.ImportStatus
+    let onStartImport: () -> Void
+    let onDone: () -> Void
+
+    var body: some View {
         Group {
-            switch importManager.status {
+            switch status {
             case .idle:
                 Button {
-                    withAnimation {
-                        importManager.modelContext = modelContext
-                        importManager.startImport()
-                    }
+                    onStartImport()
                 } label: {
                     HStack {
                         Spacer()
@@ -317,7 +350,7 @@ struct PhotoImportView: View {
 
             case .completed, .noPhotosWithLocation:
                 Button {
-                    dismiss()
+                    onDone()
                 } label: {
                     HStack {
                         Spacer()
@@ -332,7 +365,7 @@ struct PhotoImportView: View {
                 }
             }
         }
-        .animation(.easeInOut, value: importManager.status)
+        .animation(.easeInOut, value: status)
     }
 }
 
