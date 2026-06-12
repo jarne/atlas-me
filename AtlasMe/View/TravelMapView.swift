@@ -40,7 +40,8 @@ struct TravelMapView: View {
             }
         }
 
-        return MKPolygon(coordinates: worldCoordinates, count: worldCoordinates.count, interiorPolygons: visitedPolygons.isEmpty ? nil : visitedPolygons)
+        return MKPolygon(coordinates: worldCoordinates, count: worldCoordinates.count,
+                         interiorPolygons: visitedPolygons.isEmpty ? nil : visitedPolygons)
     }
 
     var body: some View {
@@ -51,13 +52,14 @@ struct TravelMapView: View {
                     maximumDistance: 50000000
                 ), interactionModes: [.pan, .zoom], selection: $selectedCountry) {
                     // 1. Draw the world-wide mask with holes for visited countries
-                    if let m = mask {
-                        MapPolygon(m)
+                    if let maskPolygon = mask {
+                        MapPolygon(maskPolygon)
                             .foregroundStyle(Color.black.opacity(0.4))
                     }
 
                     // 2. Draw highlight strokes only for visited countries
-                    ForEach(borderLoader.borders.keys.sorted().filter { visitedAlpha2s.contains($0) }, id: \.self) { alpha2 in
+                    ForEach(borderLoader.borders.keys.sorted().filter {
+                        visitedAlpha2s.contains($0) }, id: \.self) { alpha2 in
                         let isSelected = selectedCountry?.alpha2.uppercased() == alpha2
                         let polygons = borderLoader.borders[alpha2] ?? []
 
@@ -69,7 +71,8 @@ struct TravelMapView: View {
                     }
 
                     ForEach(visitedCountries) { country in
-                        Annotation(country.name, coordinate: CLLocationCoordinate2D(latitude: country.latitude, longitude: country.longitude)) {
+                        Annotation(country.name, coordinate:
+                                    CLLocationCoordinate2D(latitude: country.latitude, longitude: country.longitude)) {
                             VStack(spacing: 4) {
                                 Text(country.flagEmoji)
                                     .font(.system(size: 28))
@@ -79,7 +82,8 @@ struct TravelMapView: View {
                                     .shadow(color: Color.black.opacity(0.15), radius: 4, x: 0, y: 2)
                                     .overlay(
                                         Circle()
-                                            .stroke(selectedCountry?.id == country.id ? Color.accent : Color.clear, lineWidth: 3)
+                                            .stroke(selectedCountry?.id == country.id ?
+                                                    Color.accent : Color.clear, lineWidth: 3)
                                     )
                             }
                             .scaleEffect(selectedCountry?.id == country.id ? 1.2 : 1.0)

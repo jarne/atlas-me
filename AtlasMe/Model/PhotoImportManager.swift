@@ -85,7 +85,8 @@ class PhotoImportManager: ObservableObject {
             self.status = .importing
 
             // 2. Perform photolibrary scan in detached background task
-            let result = await Task.detached(priority: .userInitiated) { () -> (imports: [(alpha2: String, date: Date)], totalCount: Int, photosWithLocationCount: Int) in
+            let result = await Task.detached(priority: .userInitiated) {
+    () -> (imports: [(alpha2: String, date: Date)], totalCount: Int, photosWithLocationCount: Int) in
                 let options = PHFetchOptions()
                 options.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: true)]
                 let assets = PHAsset.fetchAssets(with: .image, options: options)
@@ -104,8 +105,8 @@ class PhotoImportManager: ObservableObject {
                 var importsToSave: [(alpha2: String, date: Date)] = []
                 var photosWithLocationCount = 0
 
-                for i in 0..<count {
-                    let asset = assets.object(at: i)
+                for assetI in 0..<count {
+                    let asset = assets.object(at: assetI)
                     if let location = asset.location, let date = asset.creationDate {
                         photosWithLocationCount += 1
                         let coord = location.coordinate
@@ -120,9 +121,9 @@ class PhotoImportManager: ObservableObject {
                     }
 
                     // Throttle MainActor UI updates
-                    if i % 10 == 0 || i == count - 1 {
-                        let progressVal = Double(i + 1) / Double(count)
-                        let processedVal = i + 1
+                    if assetI % 10 == 0 || assetI == count - 1 {
+                        let progressVal = Double(assetI + 1) / Double(count)
+                        let processedVal = assetI + 1
                         let importedVal = newlyImportedSet.count
 
                         Task { @MainActor in

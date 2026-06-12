@@ -36,15 +36,14 @@ class CountryBorderLoader: ObservableObject {
         return parseGeoJSON()
     }
 
-    nonisolated static func countryCode(for coordinate: CLLocationCoordinate2D, in borders: [String: [MKPolygon]]) -> String? {
+    nonisolated static func countryCode(for coordinate: CLLocationCoordinate2D,
+                                        in borders: [String: [MKPolygon]]) -> String? {
         for (alpha2, polygons) in borders {
-            for polygon in polygons {
-                if contains(coordinate: coordinate, polygon: polygon) {
+                for polygon in polygons where contains(coordinate: coordinate, polygon: polygon) {
                     return alpha2
                 }
             }
-        }
-        return nil
+            return nil
     }
 
     nonisolated private static func contains(coordinate: CLLocationCoordinate2D, polygon: MKPolygon) -> Bool {
@@ -53,7 +52,8 @@ class CountryBorderLoader: ObservableObject {
             return false
         }
 
-        var coords = [CLLocationCoordinate2D](repeating: CLLocationCoordinate2D(), count: polygon.pointCount)
+        var coords = [CLLocationCoordinate2D](repeating: CLLocationCoordinate2D(),
+                                              count: polygon.pointCount)
         polygon.getCoordinates(&coords, range: NSRange(location: 0, length: polygon.pointCount))
 
         guard isPointInPolygon(coordinate, vertices: coords) else {
@@ -61,30 +61,32 @@ class CountryBorderLoader: ObservableObject {
         }
 
         if let interiorPolygons = polygon.interiorPolygons {
-            for hole in interiorPolygons {
-                if contains(coordinate: coordinate, polygon: hole) {
-                    return false
-                }
+            for hole in polygon.interiorPolygons ?? [] where contains(coordinate: coordinate, polygon: hole) {
+                return false
             }
         }
 
         return true
     }
 
-    nonisolated private static func isPointInPolygon(_ point: CLLocationCoordinate2D, vertices: [CLLocationCoordinate2D]) -> Bool {
+    nonisolated private static func isPointInPolygon(_ point: CLLocationCoordinate2D,
+                                                     vertices: [CLLocationCoordinate2D]) -> Bool {
         guard vertices.count > 2 else { return false }
         var inside = false
-        var j = vertices.count - 1
-        for i in 0..<vertices.count {
-            let pi = vertices[i]
-            let pj = vertices[j]
+        var previous = vertices.count - 1
+        for current in 0..<vertices.count {
+            let currentVertex = vertices[current]
+            let previousVertex = vertices[previous]
 
-            let intersect = ((pi.longitude > point.longitude) != (pj.longitude > point.longitude))
-                && (point.latitude < (pj.latitude - pi.latitude) * (point.longitude - pi.longitude) / (pj.longitude - pi.longitude) + pi.latitude)
+            let intersect = ((currentVertex.longitude > point.longitude) !=
+                             (previousVertex.longitude > point.longitude))
+                && (point.latitude < (previousVertex.latitude - currentVertex.latitude) *
+                    (point.longitude - currentVertex.longitude) /
+                    (previousVertex.longitude - currentVertex.longitude) + currentVertex.latitude)
             if intersect {
                 inside = !inside
             }
-            j = i
+            previous = current
         }
         return inside
     }
@@ -139,6 +141,7 @@ class CountryBorderLoader: ObservableObject {
             return MKPolygon(coordinates: coords, count: coords.count)
         }
 
-        return MKPolygon(coordinates: exteriorCoordinates, count: exteriorCoordinates.count, interiorPolygons: interiorPolygons.isEmpty ? nil : interiorPolygons)
+        return MKPolygon(coordinates: exteriorCoordinates, count: exteriorCoordinates.count,
+                         interiorPolygons: interiorPolygons.isEmpty ? nil : interiorPolygons)
     }
 }

@@ -46,12 +46,12 @@ final class VisitedCountry {
 
     var flagEmoji: String {
         let base: UInt32 = 127397
-        var s = ""
-        for v in alpha2.uppercased().unicodeScalars {
-            if let scalar = UnicodeScalar(base + v.value) {
-                s.unicodeScalars.append(scalar)
+        var flagString = ""
+        for scalar in alpha2.uppercased().unicodeScalars {
+            if let scalar = UnicodeScalar(base + scalar.value) {
+                flagString.unicodeScalars.append(scalar)
             }
         }
-        return s
+        return flagString
     }
 }

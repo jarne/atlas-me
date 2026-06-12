@@ -45,10 +45,13 @@ struct CountryDetailView: View {
 
             Section(header: Text("Map Location")) {
                 Map(initialPosition: .region(MKCoordinateRegion(
-                    center: CLLocationCoordinate2D(latitude: visitedCountry.latitude, longitude: visitedCountry.longitude),
+                    center: CLLocationCoordinate2D(latitude: visitedCountry.latitude,
+                                                   longitude: visitedCountry.longitude),
                     span: MKCoordinateSpan(latitudeDelta: 12.0, longitudeDelta: 12.0)
                 ))) {
-                    Marker(visitedCountry.name, coordinate: CLLocationCoordinate2D(latitude: visitedCountry.latitude, longitude: visitedCountry.longitude))
+                    Marker(visitedCountry.name,
+                           coordinate: CLLocationCoordinate2D(latitude: visitedCountry.latitude,
+                                                              longitude: visitedCountry.longitude))
                 }
                 .frame(height: 200)
                 .clipShape(RoundedRectangle(cornerRadius: 12))
@@ -56,7 +59,8 @@ struct CountryDetailView: View {
             }
 
             Section(header: Text("Travel Details")) {
-                DatePicker("First Visited", selection: $visitedCountry.dateVisited, in: ...Date(), displayedComponents: .date)
+                DatePicker("First Visited", selection: $visitedCountry.dateVisited,
+                           in: ...Date(), displayedComponents: .date)
             }
 
             Section(header: Text("Travel Notes")) {

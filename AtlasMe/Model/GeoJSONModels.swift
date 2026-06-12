@@ -47,7 +47,8 @@ nonisolated struct GeoJSONGeometry: Decodable {
             let coords = try container.decode([[[[Double]]]].self, forKey: .coordinates)
             coordinates = .multiPolygon(coords)
         default:
-            throw DecodingError.dataCorruptedError(forKey: .coordinates, in: container, debugDescription: "Unknown geometry type")
+            throw DecodingError.dataCorruptedError(forKey: .coordinates,
+                                                   in: container, debugDescription: "Unknown geometry type")
         }
     }
 }
