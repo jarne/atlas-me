@@ -116,7 +116,7 @@ class CountryBorderLoader: ObservableObject {
         var result: [String: [MKPolygon]] = [:]
 
         for feature in featureCollection.features {
-            guard let alpha2 = feature.properties.iso_a2?.uppercased() else { continue }
+            guard let alpha2 = feature.properties.isoA2?.uppercased() else { continue }
 
             var polygons: [MKPolygon] = []
 
