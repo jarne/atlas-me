@@ -63,7 +63,7 @@ struct HomeView: View {
 
                     // Detailed Breakdown Section
                     VStack(alignment: .leading, spacing: 12) {
-                        Text("Stats Breakdown")
+                        Text("Countries Breakdown")
                             .font(.title3)
                             .fontWeight(.bold)
 
@@ -101,7 +101,7 @@ struct HomeView: View {
 
                             let vintage = vintageYearInfo
                             InsightCard(
-                                title: String(localized: "Vintage Year"),
+                                title: String(localized: "Explorer Year"),
                                 value: vintage.year,
                                 subtitle: vintage.subtitle,
                                 icon: "calendar.badge.clock",
@@ -183,7 +183,7 @@ struct MainExplorerCard: View {
 
                 ProgressView(value: percentage, total: 100.0)
                     .tint(.white)
-                    .background(Color.white.opacity(0.4))
+                    .background(Color.white.opacity(0.6))
                     .clipShape(Capsule())
             }
         }
