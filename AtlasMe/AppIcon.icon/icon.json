@@ -1,16 +1,26 @@
 {
   "fill" : {
-    "solid" : "srgb:0.87059,0.36471,0.13725,1.00000"
+    "solid" : "srgb:0.86667,0.36078,0.12549,1.00000"
   },
   "groups" : [
     {
       "layers" : [
         {
-          "glass" : true,
-          "image-name" : "CountriesIveBeen Logo.png",
-          "name" : "CountriesIveBeen Logo",
+          "image-name" : "App Icon World Content.png",
+          "name" : "App Icon World Content",
           "position" : {
-            "scale" : 0.4,
+            "scale" : 0.5,
+            "translation-in-points" : [
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "image-name" : "App Icon Yellow World Layer.png",
+          "name" : "App Icon Yellow World Layer",
+          "position" : {
+            "scale" : 0.5,
             "translation-in-points" : [
               0,
               0
