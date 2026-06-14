@@ -122,13 +122,6 @@ struct AddCountryDetailsView: View {
         )
         modelContext.insert(visited)
 
-        // Post a notification or dismiss. Since we want to dismiss the entire sheet,
-        // and dismiss() on a detail view in a presented NavigationStack might only pop the view,
-        // wait! In SwiftUI, calling dismiss() on a view inside a sheet presented stack will dismiss the *sheet* itself!
-        // Yes, `@Environment(\.dismiss) private var dismiss` dismisses
-        // the nearest presentation context, which is the sheet itself.
-        // Let's verify: yes, calling dismiss() in AddCountryDetailsView dismisses
-        // the entire sheet. That is exactly what we want.
         dismiss()
     }
 }

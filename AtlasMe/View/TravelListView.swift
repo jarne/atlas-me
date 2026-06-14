@@ -2,8 +2,8 @@
 //  TravelListView.swift
 //  AtlasMe
 //
-//  Displays a searchable and sortable list of all visited countries, alongside a header card
-//  that calculates and shows the user's travel stats and exploration progress.
+//  Displays a searchable and sortable list of all visited countries, and links
+//  to the views to add a new country or import visited countries from the photo library.
 //
 
 import SwiftData

@@ -3,7 +3,8 @@
 //  AtlasMe
 //
 //  The main container view of the app. It provides a tab bar interface to navigate
-//  between the list view of visited countries and the interactive travel map.
+//  between the statistics home view, the list view of visited countries and
+//  the interactive travel map.
 //
 
 import SwiftData
