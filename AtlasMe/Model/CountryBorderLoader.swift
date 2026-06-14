@@ -157,10 +157,8 @@ class CountryBorderLoader: ObservableObject {
     }
 
     /// "The Fiji Fix"
-    /// Fiji sits directly on the international date line (the 180th meridian).
-    /// When MapKit processes these coordinates, it normalizes anything exceeding 180.0 to a negative
-    /// longitude (e.g. -179.999999...). Within a single polygon, switching between +179.4 and -179.9
-    /// triggers a coordinate sign-flip.
+    /// Prevents MapKit from drawing polygons the long way around the world
+    /// when coordinates cross or sit directly on the International Date Line (180th meridian).
     private nonisolated func cleanCoordinate(_ raw: [Double]) -> CLLocationCoordinate2D {
         let lat = raw[1]
         var lon = raw[0]

@@ -45,13 +45,6 @@ final class VisitedCountry {
     }
 
     var flagEmoji: String {
-        let base: UInt32 = 127_397
-        var flagString = ""
-        for scalar in alpha2.uppercased().unicodeScalars {
-            if let scalar = UnicodeScalar(base + scalar.value) {
-                flagString.unicodeScalars.append(scalar)
-            }
-        }
-        return flagString
+        countryInfo?.flagEmoji ?? ""
     }
 }

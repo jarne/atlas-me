@@ -5,11 +5,15 @@
 //  An extension on Country that provides a static list of all countries in the world,
 //  complete with names, ISO codes, and geographic center coordinates.
 //
+//  The information in this list was provided by AI, verified with data from:
+//  https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
+//
 
 import Foundation
 
 extension Country {
     static let allCountries: [Country] = [
+        Country(name: "Afghanistan", alpha2: "AF", alpha3: "AFG", latitude: 33, longitude: 65),
         Country(name: "Albania", alpha2: "AL", alpha3: "ALB", latitude: 41, longitude: 20),
         Country(name: "Algeria", alpha2: "DZ", alpha3: "DZA", latitude: 28, longitude: 3),
         Country(name: "American Samoa", alpha2: "AS", alpha3: "ASM", latitude: -14.3333, longitude: -170),
@@ -264,7 +268,6 @@ extension Country {
         Country(name: "Western Sahara", alpha2: "EH", alpha3: "ESH", latitude: 24.5, longitude: -13),
         Country(name: "Yemen", alpha2: "YE", alpha3: "YEM", latitude: 15, longitude: 48),
         Country(name: "Zambia", alpha2: "ZM", alpha3: "ZMB", latitude: -15, longitude: 30),
-        Country(name: "Zimbabwe", alpha2: "ZW", alpha3: "ZWE", latitude: -20, longitude: 30),
-        Country(name: "Afghanistan", alpha2: "AF", alpha3: "AFG", latitude: 33, longitude: 65)
+        Country(name: "Zimbabwe", alpha2: "ZW", alpha3: "ZWE", latitude: -20, longitude: 30)
     ]
 }
