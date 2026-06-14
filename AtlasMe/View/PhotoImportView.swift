@@ -94,7 +94,7 @@ struct ImportStatusIconView: View {
             Circle()
                 .fill(
                     LinearGradient(
-                        colors: [Color.accent.opacity(0.15), Color("SecondaryColor").opacity(0.15)],
+                        colors: [Color.accent.opacity(0.15), Color("AccentSecondColor").opacity(0.15)],
                         startPoint: .topLeading,
                         endPoint: .bottomTrailing
                     )
@@ -127,7 +127,7 @@ struct ImportStatusIconView: View {
                 case .importing:
                     Image(systemName: "sparkles")
                         .font(.system(size: 50))
-                        .foregroundColor(Color("SecondaryColor"))
+                        .foregroundColor(Color("AccentSecondColor"))
                 case let .completed(count):
                     if count > 0 {
                         Image(systemName: "checkmark.circle.fill")
@@ -285,7 +285,7 @@ struct ImportProgressView: View {
         VStack(spacing: 8) {
             ProgressView(value: progress, total: 1.0)
                 .progressViewStyle(.linear)
-                .tint(Color("SecondaryColor"))
+                .tint(Color("AccentSecondColor"))
 
             Text(progress, format: .percent.precision(.fractionLength(0)))
                 .font(.caption)
@@ -319,7 +319,7 @@ struct ImportActionsView: View {
                     .padding()
                     .background(
                         LinearGradient(
-                            colors: [Color.accent, Color("SecondaryColor")],
+                            colors: [Color.accent, Color("AccentSecondColor")],
                             startPoint: .leading,
                             endPoint: .trailing
                         )
