@@ -5,6 +5,10 @@
 //  This file handles the loading and parsing of the countries.geojson file, converting
 //  the geographic data into MapKit MKPolygons for rendering country borders.
 //
+//  The data is sourced from: https://github.com/datasets/geo-countries/blob/main/data/countries.geojson
+//  under the Open Data Commons Public Domain Dedication and License, with the original data
+//  provided by Natural Earth (https://www.naturalearthdata.com), Lexman and the Open Knowledge Foundation.
+//
 
 import Combine
 import Foundation

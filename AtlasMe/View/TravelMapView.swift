@@ -48,7 +48,7 @@ struct TravelMapView: View {
         NavigationStack {
             ZStack(alignment: .top) {
                 Map(position: $position, bounds: MapCameraBounds(
-                    minimumDistance: 10_000_000,
+                    minimumDistance: 1_000_000,
                     maximumDistance: 50_000_000
                 ), interactionModes: [.pan, .zoom], selection: $selectedCountry) {
                     // 1. Draw the world-wide mask with holes for visited countries

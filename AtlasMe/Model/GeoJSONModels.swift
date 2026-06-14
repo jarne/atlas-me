@@ -27,6 +27,12 @@ nonisolated struct GeoJSONProperties: Decodable {
     let iso_a3: String?
     // swiftlint:enable identifier_name
     let name: String?
+
+    enum CodingKeys: String, CodingKey {
+        case iso_a2 = "ISO3166-1-Alpha-2"
+        case iso_a3 = "ISO3166-1-Alpha-3"
+        case name
+    }
 }
 
 nonisolated struct GeoJSONGeometry: Decodable {
