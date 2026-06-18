@@ -50,7 +50,7 @@ jobs:
         with:
           name: ${{ env.APP_NAME }} build output
           path: artifacts
-      
+
       - name: Rename release file
         run: mv artifacts/build-out.zip ${{ env.APP_NAME }}.zip
 
