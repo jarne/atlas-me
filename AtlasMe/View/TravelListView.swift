@@ -150,6 +150,7 @@ struct TravelListView: View {
                 let countryToDelete = sortedAndFilteredCountries[index]
                 modelContext.delete(countryToDelete)
             }
+            try? modelContext.save()
             WidgetCenter.shared.reloadAllTimelines()
         }
     }

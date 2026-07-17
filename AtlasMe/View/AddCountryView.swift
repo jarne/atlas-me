@@ -123,6 +123,7 @@ struct AddCountryDetailsView: View {
             notes: notes
         )
         modelContext.insert(visited)
+        try? modelContext.save()
         WidgetCenter.shared.reloadAllTimelines()
 
         dismiss()

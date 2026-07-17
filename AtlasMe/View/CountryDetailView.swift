@@ -98,12 +98,14 @@ struct CountryDetailView: View {
             Text("This will permanently remove \(visitedCountry.name) from your travelled list.")
         }
         .onDisappear {
+            try? modelContext.save()
             WidgetCenter.shared.reloadAllTimelines()
         }
     }
 
     private func deleteVisit() {
         modelContext.delete(visitedCountry)
+        try? modelContext.save()
         WidgetCenter.shared.reloadAllTimelines()
         dismiss()
     }
