@@ -58,10 +58,14 @@ struct MainExplorerWidgetView: View {
     var entry: MainExplorerEntry
 
     var body: some View {
-        MainExplorerCard(
-            visitedCount: entry.visitedCount,
-            totalOfficial: entry.totalOfficial
-        )
+        VStack(alignment: .leading, spacing: 12) {
+            MainExplorerCardContent(
+                visitedCount: entry.visitedCount,
+                totalOfficial: entry.totalOfficial
+            )
+        }
+        .foregroundColor(.white)
+        .padding(20)
     }
 }
 
@@ -71,7 +75,11 @@ struct MainExplorerWidget: Widget {
     var body: some WidgetConfiguration {
         StaticConfiguration(kind: kind, provider: MainExplorerProvider()) { entry in
             MainExplorerWidgetView(entry: entry)
-                .containerBackground(.clear, for: .widget)
+                .containerBackground(LinearGradient(
+                    colors: [Color.accent, Color("AccentSecondColor")],
+                    startPoint: .topLeading,
+                    endPoint: .bottomTrailing
+                ), for: .widget)
         }
         .configurationDisplayName("World Explorer")
         .description("Track your world exploration progress.")
