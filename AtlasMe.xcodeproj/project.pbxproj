@@ -81,7 +81,6 @@
 		8B4914E4300AA87500188069 /* StatisticsWidgetsExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = StatisticsWidgetsExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		8B4914E6300AA87500188069 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		8B4914E8300AA87500188069 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
-		8B4914FF300AA8AD00188069 /* StatisticsWidgetsExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = StatisticsWidgetsExtension.entitlements; sourceTree = "<group>"; };
 		8BDE8EF32FD09D4C009C85F3 /* AtlasMe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AtlasMe.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -157,7 +156,6 @@
 		8BDE8EEA2FD09D4C009C85F3 = {
 			isa = PBXGroup;
 			children = (
-				8B4914FF300AA8AD00188069 /* StatisticsWidgetsExtension.entitlements */,
 				8BDE8EF52FD09D4C009C85F3 /* AtlasMe */,
 				8B4914A8300A9C0400188069 /* AtlasSharedKit */,
 				8B4914EA300AA87500188069 /* StatisticsWidgets */,
@@ -454,7 +452,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
-				CODE_SIGN_ENTITLEMENTS = StatisticsWidgetsExtension.entitlements;
+				CODE_SIGN_ENTITLEMENTS = StatisticsWidgets/StatisticsWidgetsExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = 68ZXW7R956;
@@ -486,7 +484,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
-				CODE_SIGN_ENTITLEMENTS = StatisticsWidgetsExtension.entitlements;
+				CODE_SIGN_ENTITLEMENTS = StatisticsWidgets/StatisticsWidgetsExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = 68ZXW7R956;
