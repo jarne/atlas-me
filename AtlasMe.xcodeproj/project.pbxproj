@@ -13,7 +13,6 @@
 		8B4914E9300AA87500188069 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B4914E8300AA87500188069 /* SwiftUI.framework */; };
 		8B4914F4300AA87600188069 /* StatisticsWidgetsExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 8B4914E4300AA87500188069 /* StatisticsWidgetsExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		8B4914FA300AA89D00188069 /* AtlasSharedKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B4914A7300A9C0400188069 /* AtlasSharedKit.framework */; };
-		8B4914FB300AA89D00188069 /* AtlasSharedKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8B4914A7300A9C0400188069 /* AtlasSharedKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,7 +68,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				8B4914FB300AA89D00188069 /* AtlasSharedKit.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -454,7 +452,7 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_ENTITLEMENTS = StatisticsWidgets/StatisticsWidgetsExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_TEAM = 68ZXW7R956;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = StatisticsWidgets/Info.plist;
@@ -486,7 +484,7 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_ENTITLEMENTS = StatisticsWidgets/StatisticsWidgetsExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_TEAM = 68ZXW7R956;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = StatisticsWidgets/Info.plist;
@@ -643,7 +641,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = AtlasMe/AtlasMe.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_TEAM = 68ZXW7R956;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -680,7 +678,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = AtlasMe/AtlasMe.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_TEAM = 68ZXW7R956;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
