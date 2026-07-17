@@ -12,55 +12,16 @@ import SwiftUI
 struct HomeView: View {
     @Query private var visitedCountries: [VisitedCountry]
 
-    private var velocityString: String {
-        guard !visitedCountries.isEmpty else { return "0.0" }
-        let dates = visitedCountries.map { $0.dateVisited }
-        guard let minDate = dates.min() else { return "0.0" }
-        let yearsElapsed = max(Date().timeIntervalSince(minDate) / (365.25 * 24 * 3600), 1.0)
-        return String(format: "%.1f", Double(visitedCountries.count) / yearsElapsed)
-    }
-
-    private var vintageYearInfo: (year: String, subtitle: String) {
-        guard !visitedCountries.isEmpty else {
-            return (String(localized: "N/A"), String(localized: "No travels recorded"))
-        }
-        var yearCounts: [Int: Int] = [:]
-        let calendar = Calendar.current
-        for country in visitedCountries {
-            let year = calendar.component(.year, from: country.dateVisited)
-            yearCounts[year, default: 0] += 1
-        }
-        if let (mostActiveYear, maxVisits) = yearCounts.max(by: { $0.value < $1.value }) {
-            let subtitle = maxVisits == 1
-                ? String(localized: "1 country visited")
-                : String(localized: "\(maxVisits) countries visited")
-            return ("\(mostActiveYear)", subtitle)
-        }
-        return (String(localized: "N/A"), String(localized: "No travels recorded"))
-    }
-
-    private var pioneerString: String {
-        if let pioneer = visitedCountries.min(by: { $0.dateVisited < $1.dateVisited }) {
-            return "\(pioneer.flagEmoji) \(pioneer.name)"
-        }
-        return String(localized: "N/A")
-    }
-
-    private var latestAdditionString: String {
-        if let latest = visitedCountries.max(by: { $0.dateVisited < $1.dateVisited }) {
-            return "\(latest.flagEmoji) \(latest.name)"
-        }
-        return String(localized: "N/A")
-    }
-
     var body: some View {
         NavigationStack {
             ScrollView {
                 VStack(alignment: .leading, spacing: 24) {
-                    let totalOfficial = Country.allCountries.count
-                    let visitedCount = visitedCountries.count
+                    let statisticsCalculations = StatisticsCalculations(visitedCountries: visitedCountries)
 
-                    MainExplorerCard(visitedCount: visitedCount, totalOfficial: totalOfficial)
+                    MainExplorerCard(
+                        visitedCount: statisticsCalculations.visitedCount,
+                        totalOfficial: statisticsCalculations.totalOfficial
+                    )
 
                     // Detailed Breakdown Section
                     VStack(alignment: .leading, spacing: 12) {
@@ -71,14 +32,14 @@ struct HomeView: View {
                         HStack(spacing: 16) {
                             StatMiniCard(
                                 title: String(localized: "Total Visits"),
-                                value: "\(visitedCount)",
+                                value: "\(statisticsCalculations.visitedCount)",
                                 icon: "airplane",
                                 color: .blue
                             )
 
                             StatMiniCard(
                                 title: String(localized: "Remaining"),
-                                value: "\(max(0, totalOfficial - visitedCount))",
+                                value: "\(statisticsCalculations.remainingCount)",
                                 icon: "map",
                                 color: .orange
                             )
@@ -94,13 +55,13 @@ struct HomeView: View {
                         LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 16) {
                             InsightCard(
                                 title: String(localized: "Velocity"),
-                                value: velocityString,
+                                value: statisticsCalculations.velocityString,
                                 subtitle: String(localized: "New countries / year"),
                                 icon: "speedometer",
                                 color: .purple
                             )
 
-                            let vintage = vintageYearInfo
+                            let vintage = statisticsCalculations.vintageYearInfo
                             InsightCard(
                                 title: String(localized: "Explorer Year"),
                                 value: vintage.year,
@@ -111,7 +72,7 @@ struct HomeView: View {
 
                             InsightCard(
                                 title: String(localized: "The Pioneer"),
-                                value: pioneerString,
+                                value: statisticsCalculations.pioneerString,
                                 subtitle: String(localized: "First country visited"),
                                 icon: "flag.fill",
                                 color: .red
@@ -119,7 +80,7 @@ struct HomeView: View {
 
                             InsightCard(
                                 title: String(localized: "Latest Addition"),
-                                value: latestAdditionString,
+                                value: statisticsCalculations.latestAdditionString,
                                 subtitle: String(localized: "Most recently visited"),
                                 icon: "clock.fill",
                                 color: .teal
