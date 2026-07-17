@@ -91,6 +91,13 @@ struct HomeView: View {
                 .padding()
             }
             .navigationTitle("Atlas & Me")
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    NavigationLink(destination: CreditsView()) {
+                        Image(systemName: "info.circle")
+                    }
+                }
+            }
         }
     }
 }
