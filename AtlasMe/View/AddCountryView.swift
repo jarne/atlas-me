@@ -9,6 +9,7 @@
 import AtlasSharedKit
 import SwiftData
 import SwiftUI
+import WidgetKit
 
 struct AddCountryView: View {
     @Environment(\.modelContext) private var modelContext
@@ -122,6 +123,7 @@ struct AddCountryDetailsView: View {
             notes: notes
         )
         modelContext.insert(visited)
+        WidgetCenter.shared.reloadAllTimelines()
 
         dismiss()
     }

@@ -14,6 +14,7 @@ import Foundation
 import MapKit
 import Photos
 import SwiftData
+import WidgetKit
 
 @MainActor
 class PhotoImportManager: ObservableObject {
@@ -207,6 +208,7 @@ class PhotoImportManager: ObservableObject {
             modelContext.insert(newVisited)
         }
         try? modelContext.save()
+        WidgetCenter.shared.reloadAllTimelines()
     }
 
     func reset() {

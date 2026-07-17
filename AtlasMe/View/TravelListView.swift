@@ -9,6 +9,7 @@
 import AtlasSharedKit
 import SwiftData
 import SwiftUI
+import WidgetKit
 
 struct TravelListView: View {
     @Environment(\.modelContext) private var modelContext
@@ -149,6 +150,7 @@ struct TravelListView: View {
                 let countryToDelete = sortedAndFilteredCountries[index]
                 modelContext.delete(countryToDelete)
             }
+            WidgetCenter.shared.reloadAllTimelines()
         }
     }
 }

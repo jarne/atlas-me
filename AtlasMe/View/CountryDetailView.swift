@@ -10,6 +10,7 @@ import AtlasSharedKit
 import MapKit
 import SwiftData
 import SwiftUI
+import WidgetKit
 
 struct CountryDetailView: View {
     @Environment(\.modelContext) private var modelContext
@@ -96,10 +97,14 @@ struct CountryDetailView: View {
         } message: {
             Text("This will permanently remove \(visitedCountry.name) from your travelled list.")
         }
+        .onDisappear {
+            WidgetCenter.shared.reloadAllTimelines()
+        }
     }
 
     private func deleteVisit() {
         modelContext.delete(visitedCountry)
+        WidgetCenter.shared.reloadAllTimelines()
         dismiss()
     }
 }
