@@ -9,10 +9,29 @@
 /* Begin PBXBuildFile section */
 		8B4914AD300A9C0400188069 /* AtlasSharedKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B4914A7300A9C0400188069 /* AtlasSharedKit.framework */; };
 		8B4914AE300A9C0400188069 /* AtlasSharedKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8B4914A7300A9C0400188069 /* AtlasSharedKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		8B4914E7300AA87500188069 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B4914E6300AA87500188069 /* WidgetKit.framework */; };
+		8B4914E9300AA87500188069 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B4914E8300AA87500188069 /* SwiftUI.framework */; };
+		8B4914F4300AA87600188069 /* StatisticsWidgetsExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 8B4914E4300AA87500188069 /* StatisticsWidgetsExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		8B4914FA300AA89D00188069 /* AtlasSharedKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B4914A7300A9C0400188069 /* AtlasSharedKit.framework */; };
+		8B4914FB300AA89D00188069 /* AtlasSharedKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8B4914A7300A9C0400188069 /* AtlasSharedKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
 		8B4914AB300A9C0400188069 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8BDE8EEB2FD09D4C009C85F3 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8B4914A6300A9C0400188069;
+			remoteInfo = AtlasSharedKit;
+		};
+		8B4914F2300AA87600188069 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8BDE8EEB2FD09D4C009C85F3 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8B4914E3300AA87500188069;
+			remoteInfo = StatisticsWidgetsExtension;
+		};
+		8B4914FC300AA89D00188069 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 8BDE8EEB2FD09D4C009C85F3 /* Project object */;
 			proxyType = 1;
@@ -33,17 +52,61 @@
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		8B4914F9300AA87600188069 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				8B4914F4300AA87600188069 /* StatisticsWidgetsExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8B4914FE300AA89D00188069 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				8B4914FB300AA89D00188069 /* AtlasSharedKit.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		8B4914A7300A9C0400188069 /* AtlasSharedKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AtlasSharedKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8B4914E4300AA87500188069 /* StatisticsWidgetsExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = StatisticsWidgetsExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		8B4914E6300AA87500188069 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		8B4914E8300AA87500188069 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		8B4914FF300AA8AD00188069 /* StatisticsWidgetsExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = StatisticsWidgetsExtension.entitlements; sourceTree = "<group>"; };
 		8BDE8EF32FD09D4C009C85F3 /* AtlasMe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AtlasMe.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		8B4914F5300AA87600188069 /* Exceptions for "StatisticsWidgets" folder in "StatisticsWidgetsExtension" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 8B4914E3300AA87500188069 /* StatisticsWidgetsExtension */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		8B4914A8300A9C0400188069 /* AtlasSharedKit */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = AtlasSharedKit;
+			sourceTree = "<group>";
+		};
+		8B4914EA300AA87500188069 /* StatisticsWidgets */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				8B4914F5300AA87600188069 /* Exceptions for "StatisticsWidgets" folder in "StatisticsWidgetsExtension" target */,
+			);
+			path = StatisticsWidgets;
 			sourceTree = "<group>";
 		};
 		8BDE8EF52FD09D4C009C85F3 /* AtlasMe */ = {
@@ -61,6 +124,16 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		8B4914E1300AA87500188069 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8B4914E9300AA87500188069 /* SwiftUI.framework in Frameworks */,
+				8B4914E7300AA87500188069 /* WidgetKit.framework in Frameworks */,
+				8B4914FA300AA89D00188069 /* AtlasSharedKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8BDE8EF02FD09D4C009C85F3 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -72,11 +145,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8B4914E5300AA87500188069 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				8B4914E6300AA87500188069 /* WidgetKit.framework */,
+				8B4914E8300AA87500188069 /* SwiftUI.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		8BDE8EEA2FD09D4C009C85F3 = {
 			isa = PBXGroup;
 			children = (
+				8B4914FF300AA8AD00188069 /* StatisticsWidgetsExtension.entitlements */,
 				8BDE8EF52FD09D4C009C85F3 /* AtlasMe */,
 				8B4914A8300A9C0400188069 /* AtlasSharedKit */,
+				8B4914EA300AA87500188069 /* StatisticsWidgets */,
+				8B4914E5300AA87500188069 /* Frameworks */,
 				8BDE8EF42FD09D4C009C85F3 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -86,6 +171,7 @@
 			children = (
 				8BDE8EF32FD09D4C009C85F3 /* AtlasMe.app */,
 				8B4914A7300A9C0400188069 /* AtlasSharedKit.framework */,
+				8B4914E4300AA87500188069 /* StatisticsWidgetsExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -126,6 +212,30 @@
 			productReference = 8B4914A7300A9C0400188069 /* AtlasSharedKit.framework */;
 			productType = "com.apple.product-type.framework";
 		};
+		8B4914E3300AA87500188069 /* StatisticsWidgetsExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8B4914F6300AA87600188069 /* Build configuration list for PBXNativeTarget "StatisticsWidgetsExtension" */;
+			buildPhases = (
+				8B4914E0300AA87500188069 /* Sources */,
+				8B4914E1300AA87500188069 /* Frameworks */,
+				8B4914E2300AA87500188069 /* Resources */,
+				8B4914FE300AA89D00188069 /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				8B4914FD300AA89D00188069 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				8B4914EA300AA87500188069 /* StatisticsWidgets */,
+			);
+			name = StatisticsWidgetsExtension;
+			packageProductDependencies = (
+			);
+			productName = StatisticsWidgetsExtension;
+			productReference = 8B4914E4300AA87500188069 /* StatisticsWidgetsExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		8BDE8EF22FD09D4C009C85F3 /* AtlasMe */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8BDE8F002FD09D4D009C85F3 /* Build configuration list for PBXNativeTarget "AtlasMe" */;
@@ -134,11 +244,13 @@
 				8BDE8EF02FD09D4C009C85F3 /* Frameworks */,
 				8BDE8EF12FD09D4C009C85F3 /* Resources */,
 				8B4914AF300A9C0400188069 /* Embed Frameworks */,
+				8B4914F9300AA87600188069 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 				8B4914AC300A9C0400188069 /* PBXTargetDependency */,
+				8B4914F3300AA87600188069 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				8BDE8EF52FD09D4C009C85F3 /* AtlasMe */,
@@ -163,6 +275,9 @@
 					8B4914A6300A9C0400188069 = {
 						CreatedOnToolsVersion = 26.6;
 					};
+					8B4914E3300AA87500188069 = {
+						CreatedOnToolsVersion = 26.6;
+					};
 					8BDE8EF22FD09D4C009C85F3 = {
 						CreatedOnToolsVersion = 26.5;
 					};
@@ -184,12 +299,20 @@
 			targets = (
 				8BDE8EF22FD09D4C009C85F3 /* AtlasMe */,
 				8B4914A6300A9C0400188069 /* AtlasSharedKit */,
+				8B4914E3300AA87500188069 /* StatisticsWidgetsExtension */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
 		8B4914A5300A9C0400188069 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8B4914E2300AA87500188069 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -213,6 +336,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		8B4914E0300AA87500188069 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8BDE8EEF2FD09D4C009C85F3 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -227,6 +357,16 @@
 			isa = PBXTargetDependency;
 			target = 8B4914A6300A9C0400188069 /* AtlasSharedKit */;
 			targetProxy = 8B4914AB300A9C0400188069 /* PBXContainerItemProxy */;
+		};
+		8B4914F3300AA87600188069 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8B4914E3300AA87500188069 /* StatisticsWidgetsExtension */;
+			targetProxy = 8B4914F2300AA87600188069 /* PBXContainerItemProxy */;
+		};
+		8B4914FD300AA89D00188069 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8B4914A6300A9C0400188069 /* AtlasSharedKit */;
+			targetProxy = 8B4914FC300AA89D00188069 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -306,6 +446,70 @@
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		8B4914F7300AA87600188069 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = StatisticsWidgetsExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 3;
+				DEVELOPMENT_TEAM = 68ZXW7R956;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = StatisticsWidgets/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = StatisticsWidgets;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.6;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = net.yellowlake.AtlasMe.StatisticsWidgets;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		8B4914F8300AA87600188069 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = StatisticsWidgetsExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 3;
+				DEVELOPMENT_TEAM = 68ZXW7R956;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = StatisticsWidgets/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = StatisticsWidgets;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.6;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = net.yellowlake.AtlasMe.StatisticsWidgets;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
@@ -516,6 +720,15 @@
 			buildConfigurations = (
 				8B4914B0300A9C0400188069 /* Debug */,
 				8B4914B1300A9C0400188069 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8B4914F6300AA87600188069 /* Build configuration list for PBXNativeTarget "StatisticsWidgetsExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8B4914F7300AA87600188069 /* Debug */,
+				8B4914F8300AA87600188069 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
