@@ -5,6 +5,7 @@
 //  Displays travel stats and exploration progress card.
 //
 
+import AtlasSharedKit
 import SwiftData
 import SwiftUI
 

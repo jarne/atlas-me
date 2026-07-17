@@ -6,6 +6,7 @@
 //  such as date of visit and notes, and add them to their list of visited countries.
 //
 
+import AtlasSharedKit
 import SwiftData
 import SwiftUI
 

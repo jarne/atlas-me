@@ -6,6 +6,7 @@
 //  It allows users to edit their visit date and travel notes, or delete the visit entirely.
 //
 
+import AtlasSharedKit
 import MapKit
 import SwiftData
 import SwiftUI

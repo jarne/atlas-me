@@ -11,7 +11,7 @@
 
 import Foundation
 
-extension Country {
+public extension Country {
     static let allCountries: [Country] = [
         Country(name: "Afghanistan", alpha2: "AF", alpha3: "AFG", latitude: 33, longitude: 65),
         Country(name: "Albania", alpha2: "AL", alpha3: "ALB", latitude: 41, longitude: 20),

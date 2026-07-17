@@ -6,6 +6,7 @@
 //  the SwiftData model container for storing visited countries and bootstraps the user interface.
 //
 
+import AtlasSharedKit
 import SwiftData
 import SwiftUI
 

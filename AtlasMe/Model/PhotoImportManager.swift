@@ -7,6 +7,7 @@
 //  and saving new countries with the photo's creation date.
 //
 
+import AtlasSharedKit
 import Combine
 import CoreLocation
 import Foundation

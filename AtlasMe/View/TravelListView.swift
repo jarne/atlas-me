@@ -6,6 +6,7 @@
 //  to the views to add a new country or import visited countries from the photo library.
 //
 
+import AtlasSharedKit
 import SwiftData
 import SwiftUI
 
