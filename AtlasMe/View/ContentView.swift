@@ -7,6 +7,7 @@
 //  the interactive travel map.
 //
 
+import AtlasSharedKit
 import SwiftData
 import SwiftUI
 

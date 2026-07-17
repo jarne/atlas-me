@@ -6,23 +6,13 @@
 //  the SwiftData model container for storing visited countries and bootstraps the user interface.
 //
 
+import AtlasSharedKit
 import SwiftData
 import SwiftUI
 
 @main
 struct AtlasMeApp: App {
-    var sharedModelContainer: ModelContainer = {
-        let schema = Schema([
-            VisitedCountry.self
-        ])
-        let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
-
-        do {
-            return try ModelContainer(for: schema, configurations: [modelConfiguration])
-        } catch {
-            fatalError("Could not create ModelContainer: \(error)")
-        }
-    }()
+    var sharedModelContainer: ModelContainer = .createShared()
 
     var body: some Scene {
         WindowGroup {

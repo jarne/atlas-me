@@ -7,12 +7,14 @@
 //  and saving new countries with the photo's creation date.
 //
 
+import AtlasSharedKit
 import Combine
 import CoreLocation
 import Foundation
 import MapKit
 import Photos
 import SwiftData
+import WidgetKit
 
 @MainActor
 class PhotoImportManager: ObservableObject {
@@ -206,6 +208,7 @@ class PhotoImportManager: ObservableObject {
             modelContext.insert(newVisited)
         }
         try? modelContext.save()
+        WidgetCenter.shared.reloadAllTimelines()
     }
 
     func reset() {

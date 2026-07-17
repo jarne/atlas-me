@@ -6,6 +6,7 @@
 //  It allows users to tap annotations to view summary cards and navigate to details.
 //
 
+import AtlasSharedKit
 import MapKit
 import SwiftData
 import SwiftUI

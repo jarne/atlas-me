@@ -8,18 +8,18 @@
 
 import Foundation
 
-struct Country: Identifiable, Codable, Hashable {
-    var id: String {
+public struct Country: Identifiable, Codable, Hashable {
+    public var id: String {
         alpha2
     }
 
-    let name: String
-    let alpha2: String
-    let alpha3: String
-    let latitude: Double
-    let longitude: Double
+    public let name: String
+    public let alpha2: String
+    public let alpha3: String
+    public let latitude: Double
+    public let longitude: Double
 
-    var flagEmoji: String {
+    public var flagEmoji: String {
         let base: UInt32 = 127_397
         var flagString = ""
         for scalar in alpha2.uppercased().unicodeScalars {

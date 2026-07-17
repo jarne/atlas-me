@@ -208,3 +208,5 @@ vite.config.ts.timestamp-*
 pnpm-lock.yaml
 
 AtlasMe/
+AtlasSharedKit/
+StatisticsWidgets/

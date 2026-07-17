@@ -6,8 +6,10 @@
 //  such as date of visit and notes, and add them to their list of visited countries.
 //
 
+import AtlasSharedKit
 import SwiftData
 import SwiftUI
+import WidgetKit
 
 struct AddCountryView: View {
     @Environment(\.modelContext) private var modelContext
@@ -121,6 +123,8 @@ struct AddCountryDetailsView: View {
             notes: notes
         )
         modelContext.insert(visited)
+        try? modelContext.save()
+        WidgetCenter.shared.reloadAllTimelines()
 
         dismiss()
     }

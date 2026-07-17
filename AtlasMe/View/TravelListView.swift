@@ -6,8 +6,10 @@
 //  to the views to add a new country or import visited countries from the photo library.
 //
 
+import AtlasSharedKit
 import SwiftData
 import SwiftUI
+import WidgetKit
 
 struct TravelListView: View {
     @Environment(\.modelContext) private var modelContext
@@ -148,6 +150,8 @@ struct TravelListView: View {
                 let countryToDelete = sortedAndFilteredCountries[index]
                 modelContext.delete(countryToDelete)
             }
+            try? modelContext.save()
+            WidgetCenter.shared.reloadAllTimelines()
         }
     }
 }

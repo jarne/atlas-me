@@ -4,4 +4,4 @@ allowBuilds:
 minimumReleaseAgeExclude:
   - "@lingo.dev/_compiler@0.12.7"
   - "@lingo.dev/_react@0.7.7"
-  - lingo.dev@0.137.1
+  - lingo.dev@0.137.1 || 0.138.2

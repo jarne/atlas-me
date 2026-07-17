@@ -6,9 +6,11 @@
 //  It allows users to edit their visit date and travel notes, or delete the visit entirely.
 //
 
+import AtlasSharedKit
 import MapKit
 import SwiftData
 import SwiftUI
+import WidgetKit
 
 struct CountryDetailView: View {
     @Environment(\.modelContext) private var modelContext
@@ -95,10 +97,16 @@ struct CountryDetailView: View {
         } message: {
             Text("This will permanently remove \(visitedCountry.name) from your travelled list.")
         }
+        .onDisappear {
+            try? modelContext.save()
+            WidgetCenter.shared.reloadAllTimelines()
+        }
     }
 
     private func deleteVisit() {
         modelContext.delete(visitedCountry)
+        try? modelContext.save()
+        WidgetCenter.shared.reloadAllTimelines()
         dismiss()
     }
 }

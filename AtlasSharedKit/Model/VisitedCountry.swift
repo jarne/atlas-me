@@ -12,39 +12,39 @@ import Foundation
 import SwiftData
 
 @Model
-final class VisitedCountry {
-    @Attribute(.unique) var alpha2: String
-    var dateVisited: Date
-    var notes: String
+public final class VisitedCountry {
+    @Attribute(.unique) public var alpha2: String
+    public var dateVisited: Date
+    public var notes: String
 
-    init(alpha2: String, dateVisited: Date = Date(), notes: String = "") {
+    public init(alpha2: String, dateVisited: Date = Date(), notes: String = "") {
         self.alpha2 = alpha2.uppercased()
         self.dateVisited = dateVisited
         self.notes = notes
     }
 
     /// Dynamically retrieve static country information from CountryStaticList
-    var countryInfo: Country? {
+    public var countryInfo: Country? {
         Country.allCountries.first(where: { $0.alpha2 == self.alpha2 })
     }
 
-    var name: String {
+    public var name: String {
         countryInfo?.name ?? String(localized: "Unknown Country")
     }
 
-    var alpha3: String {
+    public var alpha3: String {
         countryInfo?.alpha3 ?? ""
     }
 
-    var latitude: Double {
+    public var latitude: Double {
         countryInfo?.latitude ?? 0.0
     }
 
-    var longitude: Double {
+    public var longitude: Double {
         countryInfo?.longitude ?? 0.0
     }
 
-    var flagEmoji: String {
+    public var flagEmoji: String {
         countryInfo?.flagEmoji ?? ""
     }
 }

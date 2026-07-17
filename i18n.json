@@ -7,7 +7,11 @@
   },
   "buckets": {
     "xcode-xcstrings": {
-      "include": ["AtlasMe/Localizable.xcstrings"]
+      "include": [
+        "AtlasMe/Localizable.xcstrings",
+        "AtlasSharedKit/Localizable.xcstrings",
+        "StatisticsWidgets/Localizable.xcstrings"
+      ]
     }
   },
   "provider": {
