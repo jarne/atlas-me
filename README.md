@@ -11,6 +11,9 @@
     <a href="https://github.com/jarne/atlas-me">
         <img src="https://img.shields.io/badge/language-Swift-orange" alt="Written in Swift">
     </a>
+    <a href="https://testflight.apple.com/join/exSQGw9j">
+        <img src="https://img.shields.io/badge/Download-TestFlight-blue" alt="Download on TestFlight">
+    </a>
     <a href="https://github.com/jarne/atlas-me/blob/main/LICENSE">
         <img src="https://img.shields.io/github/license/jarne/atlas-me.svg" alt="License">
     </a>
@@ -47,8 +50,8 @@ but everyone is more than welcome to contribute changes for their native languag
 
 ## 🖥 Usage
 
-The latest build artifact of the app can be downloaded and installed from the releases page.
-An official release on the App Store will be available in the near future.
+An official beta release is available for download on [TestFlight](https://testflight.apple.com/join/exSQGw9j).
+The latest, unsigned build artifact of the app can be downloaded and installed from the releases page.
 
 Once started, you can begin collecting countries in the country tab of the app
 by either adding them manually to the list or automatically importing them from your photo library.
