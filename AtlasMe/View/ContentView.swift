@@ -12,6 +12,7 @@ import SwiftData
 import SwiftUI
 
 struct ContentView: View {
+    @Query private var visitedCountries: [VisitedCountry]
     @State private var selectedTab = 0
 
     var body: some View {
@@ -35,6 +36,13 @@ struct ContentView: View {
                 .tag(2)
         }
         .tint(.accent)
+        .onAppear {
+            // Send first-time users without any countries to the list view,
+            // where they can add their first country
+            if visitedCountries.isEmpty {
+                selectedTab = 1
+            }
+        }
     }
 }
 
