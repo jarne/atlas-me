@@ -33,13 +33,13 @@ struct TravelListView: View {
         var localizedName: String {
             switch self {
             case .dateNewest:
-                return String(localized: "Date (Newest)")
+                String(localized: "Date (Newest)")
             case .dateOldest:
-                return String(localized: "Date (Oldest)")
+                String(localized: "Date (Oldest)")
             case .nameAZ:
-                return String(localized: "Name (A-Z)")
+                String(localized: "Name (A-Z)")
             case .nameZA:
-                return String(localized: "Name (Z-A)")
+                String(localized: "Name (Z-A)")
             }
         }
     }

@@ -76,9 +76,9 @@ struct PhotoImportView: View {
     private var isFinishedState: Bool {
         switch importManager.status {
         case .completed, .noPhotosWithLocation, .denied:
-            return true
+            true
         default:
-            return false
+            false
         }
     }
 }

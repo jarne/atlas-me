@@ -43,7 +43,7 @@ struct AddCountryView: View {
     }
 
     private var filteredCountries: [Country] {
-        let visitedCodes = Set(visitedCountries.map { $0.alpha2 })
+        let visitedCodes = Set(visitedCountries.map(\.alpha2))
         let available = Country.allCountries.filter { !visitedCodes.contains($0.alpha2) }
 
         if searchQuery.isEmpty {

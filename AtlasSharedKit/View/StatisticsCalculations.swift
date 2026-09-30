@@ -19,16 +19,16 @@ public final class StatisticsCalculations {
     public let totalOfficial = Country.allCountries.count
 
     public var visitedCount: Int {
-        return visitedCountries.count
+        visitedCountries.count
     }
 
     public var remainingCount: Int {
-        return max(0, totalOfficial - visitedCount)
+        max(0, totalOfficial - visitedCount)
     }
 
     public var velocityString: String {
         guard !visitedCountries.isEmpty else { return "0.0" }
-        let dates = visitedCountries.map { $0.dateVisited }
+        let dates = visitedCountries.map(\.dateVisited)
         guard let minDate = dates.min() else { return "0.0" }
         let yearsElapsed = max(Date().timeIntervalSince(minDate) / (365.25 * 24 * 3600), 1.0)
         return String(format: "%.1f", Double(visitedCountries.count) / yearsElapsed)

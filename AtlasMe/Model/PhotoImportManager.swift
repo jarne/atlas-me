@@ -40,7 +40,7 @@ class PhotoImportManager: ObservableObject {
         status = .requestingAuthorization
 
         PHPhotoLibrary.requestAuthorization(for: .readWrite) { [weak self] authStatus in
-            guard let self = self else { return }
+            guard let self else { return }
 
             Task { @MainActor in
                 switch authStatus {
@@ -89,7 +89,7 @@ class PhotoImportManager: ObservableObject {
     }
 
     private func fetchExistingCountryCodes() -> Set<String> {
-        guard let modelContext = modelContext else { return [] }
+        guard let modelContext else { return [] }
         let descriptor = FetchDescriptor<VisitedCountry>()
         let visited = try? modelContext.fetch(descriptor)
         return Set(visited?.map { $0.alpha2.uppercased() } ?? [])
@@ -157,7 +157,7 @@ class PhotoImportManager: ObservableObject {
                 if assetI % 10 == 0 || assetI == count - 1 {
                     let importedVal = state.newlyImportedSet.count
                     if let self {
-                        await self.updateUIProgress(index: assetI, count: count, newlyImportedCount: importedVal)
+                        await updateUIProgress(index: assetI, count: count, newlyImportedCount: importedVal)
                     }
                 }
             }
@@ -198,7 +198,7 @@ class PhotoImportManager: ObservableObject {
     }
 
     private func saveImportedCountries(_ imports: [(alpha2: String, date: Date)]) {
-        guard let modelContext = modelContext else { return }
+        guard let modelContext else { return }
         for importData in imports {
             let newVisited = VisitedCountry(
                 alpha2: importData.alpha2,

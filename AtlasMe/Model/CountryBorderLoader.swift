@@ -37,7 +37,7 @@ class CountryBorderLoader: ObservableObject {
     }
 
     nonisolated func loadBordersDict() -> [String: [MKPolygon]] {
-        return parseGeoJSON()
+        parseGeoJSON()
     }
 
     nonisolated static func countryCode(

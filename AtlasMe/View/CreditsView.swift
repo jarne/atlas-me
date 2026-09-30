@@ -11,13 +11,13 @@ struct CreditsView: View {
     @Environment(\.openURL) private var openURL
 
     var appName: String {
-        return Bundle.main.object(forInfoDictionaryKey: "CFBundleDisplayName") as? String
+        Bundle.main.object(forInfoDictionaryKey: "CFBundleDisplayName") as? String
             ?? Bundle.main.object(forInfoDictionaryKey: "CFBundleName") as? String
             ?? "Unknown App"
     }
 
     var appVersion: String {
-        return Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String
+        Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String
             ?? "Unknown Version"
     }
 
