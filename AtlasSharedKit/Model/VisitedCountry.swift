@@ -13,9 +13,9 @@ import SwiftData
 
 @Model
 public final class VisitedCountry {
-    @Attribute(.unique) public var alpha2: String
-    public var dateVisited: Date
-    public var notes: String
+    public var alpha2: String = ""
+    public var dateVisited: Date = Date()
+    public var notes: String = ""
 
     public init(alpha2: String, dateVisited: Date = Date(), notes: String = "") {
         self.alpha2 = alpha2.uppercased()
