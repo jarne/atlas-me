@@ -1,13 +1,8 @@
 version: 1
 checksums:
   6007fef82661d1c8af785b6a18585e18:
-    "%2F%20%25lld%20Countries": 439beb14272034766f4c57498326ee87
-    "%25%40%20of%20the%20world%20visited": 11341031653ee361e898744bfaa52952
-    "%25lld": 7ba3db343a150b1789fd64ac7b9aeac3
-    "%25lld%20countries%20visited": 5b004a3d62497add1017168ec25a1ba2
+    "%25%40%20Private%20%26%20Secure": f090df6469900db739f43c9fda66ea6d
     "%E2%80%A2": 5f1c90d0fd46023ba1bfaaa2537f59fb
-    1%20country%20visited: 5c6d696f98d6bf07d56efc91738a21e5
-    100%25%20Private%20%26%20Secure: aece786b5603827948453d3d7a3521cd
     About: 944521eeeed2511833d2299931273c71
     Accessing%20Photos...: 5a03398796572948b24cc81769bb9fd0
     Add%20Country: f7ca9c1461fbcb8550ce377a09b72ec7
@@ -47,13 +42,11 @@ checksums:
     Most%20recently%20visited: 9fb0929148735d4263d8b45012a8bd26
     My%20Atlas%20%26%20Me: 0085a9bc54a10def186cf500321231cb
     My%20Countries: 5bebe9d28a4a952de654d2c420b16487
-    N%2FA: 0f9c9f00cd99d49b710b4e4cfd8fe85c
     Name%20(A-Z): fb19f14e55fb3674e2a4ae677c68bc9d
     Name%20(Z-A): 9f9be71499c8edfa16cadb5aa21190e0
     New%20countries%20%2F%20year: b86fbba2de825259b23ea1b73b54a4b1
     No%20Geotagged%20Photos: 056c09f4a1570e6407650b4f078007b1
     No%20Matches: 1450b0aa11b1dc4570ed83b08daa02f3
-    No%20travels%20recorded: dde6a8bec509a742fb4cb427a508f58c
     No%20Travels%20Yet: 4ee092879ebdff4bccbd124e41ee82f2
     No%20visited%20countries%20yet.%20Add%20some%20in%20the%20Travels%20tab!: 1ab0ce6fe35a9020c46fb45ad476ff1f
     Open%20Settings: 8eaaab83f5a8c5e90df8322ecd5f25d6
@@ -86,7 +79,6 @@ checksums:
     Travel%20Notes: 9eacaad4909b03ccc4098f7edde8453b
     Travel%20Notes%20(Optional): e9377b86151a8612c584285ebfbb18cb
     Try%20searching%20for%20a%20different%20country.: 7287292490b1cace622a4e2efacd0956
-    Unknown%20Country: b9ba877aba40baaaeafad5cebe6c878c
     Velocity: ec89b438ebec7cf6fb4f2e05c12f0be3
     Version%20%25%40: cf4db144f7f837af8ba132079390ce98
     View%20on%20GitHub: f4ed8bf57c5ab83d3cf439e6dacc6dd5
@@ -94,7 +86,6 @@ checksums:
     We%20couldn't%20find%20any%20photos%20with%20location%20coordinates%20in%20your%20library.%20Make%20sure%20location%20services%20are%20enabled%20for%20your%20camera.: 79bd997072c99de8046de1dd3ead3d84
     What%20did%20you%20do%20there%3F: 578621216485ec4634bba25cedaac3a2
     What%20did%20you%20do%20there%3F%20Favorite%20places%3F: 178e76ec0ed7dbdd1066295e2bb5df74
-    WORLD%20EXPLORER: 08206a8591f4afc41ac962234b10f32d
   e59b9fca697f090905ae64018b56762d:
     "%2F%20%25lld%20Countries": 439beb14272034766f4c57498326ee87
     "%25%40%20of%20the%20world%20visited": 11341031653ee361e898744bfaa52952
