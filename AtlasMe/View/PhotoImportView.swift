@@ -261,7 +261,7 @@ struct PrivacyCard: View {
                 .foregroundColor(.accent)
 
             VStack(alignment: .leading, spacing: 4) {
-                Text("100% Private & Secure")
+                Text("\(1.0, format: .percent) Private & Secure")
                     .font(.subheadline)
                     .bold()
                 Text("""
