@@ -3,7 +3,7 @@
 //  AtlasMe
 //
 //  A reusable progress card that displays the user's total visited countries count,
-//  computing a formatted percentage alongside a custom gradient and a white ProgressView.
+//  computing a formatted percentage alongside a custom gradient and a white progress bar.
 //
 
 import SwiftUI
@@ -89,10 +89,18 @@ public struct MainExplorerCardContent: View {
                 Spacer()
             }
 
-            ProgressView(value: percentage, total: 100.0)
-                .tint(.white)
-                .background(Color.white.opacity(0.6))
-                .clipShape(Capsule())
+            // Drawn with plain shapes instead of a ProgressView, which ImageRenderer
+            // can't render (used for sharing the stats view as an image)
+            Capsule()
+                .fill(Color.white.opacity(0.6))
+                .frame(height: 4)
+                .overlay(alignment: .leading) {
+                    GeometryReader { geometry in
+                        Capsule()
+                            .fill(Color.white)
+                            .frame(width: geometry.size.width * min(percentage / 100.0, 1.0))
+                    }
+                }
         }
     }
 }

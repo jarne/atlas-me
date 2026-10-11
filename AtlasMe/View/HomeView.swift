@@ -11,87 +11,36 @@ import SwiftUI
 
 struct HomeView: View {
     @Query private var visitedCountries: [VisitedCountry]
+    @Environment(\.colorScheme) private var colorScheme
+    @Environment(\.displayScale) private var displayScale
+
+    /// Renders the home statistics into a PNG image that can be shared
+    private var shareImage: ShareableImage? {
+        let renderer = ImageRenderer(
+            content: HomeStatsShareCard(visitedCountries: visitedCountries)
+                .environment(\.colorScheme, colorScheme)
+        )
+        renderer.scale = displayScale
+        guard let uiImage = renderer.uiImage, let pngData = uiImage.pngData() else { return nil }
+        return ShareableImage(pngData: pngData, preview: Image(uiImage: uiImage))
+    }
 
     var body: some View {
         NavigationStack {
             ScrollView {
-                VStack(alignment: .leading, spacing: 24) {
-                    let statisticsCalculations = StatisticsCalculations(visitedCountries: visitedCountries)
-
-                    MainExplorerCard(
-                        visitedCount: statisticsCalculations.visitedCount,
-                        totalOfficial: statisticsCalculations.totalOfficial
-                    )
-
-                    // Detailed Breakdown Section
-                    VStack(alignment: .leading, spacing: 12) {
-                        Text("Countries Breakdown")
-                            .font(.title3)
-                            .fontWeight(.bold)
-
-                        HStack(spacing: 16) {
-                            StatMiniCard(
-                                title: String(localized: "Total Visits"),
-                                value: "\(statisticsCalculations.visitedCount)",
-                                icon: "airplane",
-                                color: .blue
-                            )
-
-                            StatMiniCard(
-                                title: String(localized: "Remaining"),
-                                value: "\(statisticsCalculations.remainingCount)",
-                                icon: "map",
-                                color: .orange
-                            )
-                        }
-                    }
-
-                    // Travel Insights Section
-                    VStack(alignment: .leading, spacing: 12) {
-                        Text("Travel Insights")
-                            .font(.title3)
-                            .fontWeight(.bold)
-
-                        LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 16) {
-                            InsightCard(
-                                title: String(localized: "Velocity"),
-                                value: statisticsCalculations.velocityString,
-                                subtitle: String(localized: "New countries / year"),
-                                icon: "speedometer",
-                                color: .purple
-                            )
-
-                            let vintage = statisticsCalculations.vintageYearInfo
-                            InsightCard(
-                                title: String(localized: "Explorer Year"),
-                                value: vintage.year,
-                                subtitle: vintage.subtitle,
-                                icon: "calendar.badge.clock",
-                                color: .green
-                            )
-
-                            InsightCard(
-                                title: String(localized: "The Pioneer"),
-                                value: statisticsCalculations.pioneerString,
-                                subtitle: String(localized: "First country visited"),
-                                icon: "flag.fill",
-                                color: .red
-                            )
-
-                            InsightCard(
-                                title: String(localized: "Latest Addition"),
-                                value: statisticsCalculations.latestAdditionString,
-                                subtitle: String(localized: "Most recently visited"),
-                                icon: "clock.fill",
-                                color: .teal
-                            )
-                        }
-                    }
-                }
-                .padding()
+                HomeStatsContent(visitedCountries: visitedCountries)
+                    .padding()
             }
             .navigationTitle("Atlas & Me")
             .toolbar {
+                if let shareImage {
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        ShareLink(
+                            item: shareImage,
+                            preview: SharePreview("My Atlas & Me", image: shareImage.preview)
+                        )
+                    }
+                }
                 ToolbarItem(placement: .navigationBarTrailing) {
                     NavigationLink(destination: CreditsView()) {
                         Image(systemName: "info.circle")
