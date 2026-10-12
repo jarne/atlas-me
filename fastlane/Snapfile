@@ -24,7 +24,9 @@ clear_previous_screenshots(true)
 override_status_bar(true)
 
 # Arguments to pass to the app on launch. See https://docs.fastlane.tools/actions/snapshot/#launch-arguments
-launch_arguments(["-UseTestData"])
+# launch_arguments(["-UseTestData"])
+
+concurrent_simulators(false)
 
 # For more information about all available options run
 # fastlane action snapshot
