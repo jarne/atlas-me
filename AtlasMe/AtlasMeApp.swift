@@ -16,7 +16,9 @@ import WidgetKit
 
 @main
 struct AtlasMeApp: App {
-    var sharedModelContainer: ModelContainer = .createShared(syncWithCloudKit: true)
+    var sharedModelContainer: ModelContainer = ModelContainer.shouldUseTestData
+        ? .createWithTestData()
+        : .createShared(syncWithCloudKit: true)
 
     var body: some Scene {
         WindowGroup {
