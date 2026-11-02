@@ -64,12 +64,29 @@ Atlas & Me is a native iOS app developed using Swift and SwiftUI.
 It uses SwiftData to store the visited countries.
 Thanks to its simplicity, no dependencies are required, and the app can just be built as an Xcode project.
 
+The app uses four Xcode targets:
+
+* **AtlasMe** is the main iOS app and contains the UI and model used inside the app.
+* **AtlasSharedKit** contains models and UI that is shared between the app and the widgets and can therefore be reused by both targets.
+* **StatisticsWidgets** are the home screen widgets provided by the app.
+* **AtlasMeUITests** are UI tests that currently only contain the marketing screenshot test plan to create screenshots of the app automatically (see [Screenshots](#screenshots)).
+
 Before committing code, two mandatory checks need to be executed:
 
 Lint code using SwiftLint: `swiftlint lint .`  
 Format code style using SwiftFormat: `swiftformat .`
 
 Both tools can be installed using [Homebrew](https://brew.sh) (`brew install swiftlint` and `brew install swiftformat`), as done in the [CI pipelines](https://github.com/jarne/atlas-me/blob/main/.github/workflows/lint-code.yml).
+
+### Screenshots
+
+The creation of marketing screenshot for the App Store is automated using [fastlane](https://github.com/fastlane/fastlane).
+fastlane can be installed using RubyGems by running `bundle installed`. RubyGems is configured to use a local Gem
+folder located at `vendor/bundle` inside the repository.
+
+After installing the dependencies, create the screenshots using: `bundle exec fastlane snapshots`
+
+Screenshot devices and languages are defined in the [Snapfile](fastlane/Snapfile).
 
 ## 🙋‍ Contribution
 
