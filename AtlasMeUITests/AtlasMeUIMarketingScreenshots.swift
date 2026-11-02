@@ -10,10 +10,10 @@
 import XCTest
 
 final class AtlasMeUIMarketingScreenshots: XCTestCase {
-    private enum Tab: Int {
-        case home = 0
-        case countries = 1
-        case map = 2
+    private enum Tab: String {
+        case home = "chart.bar.horizontal.page"
+        case countries = "airplane.circle.fill"
+        case map = "map.fill"
     }
 
     override func setUpWithError() throws {
@@ -41,7 +41,7 @@ final class AtlasMeUIMarketingScreenshots: XCTestCase {
 
     @MainActor
     private func select(_ tab: Tab, in app: XCUIApplication) {
-        let button = app.tabBars.buttons.element(boundBy: tab.rawValue)
+        let button = app.buttons[tab.rawValue].firstMatch
         XCTAssertTrue(button.waitForExistence(timeout: 10), "Tab \(tab) not found")
         button.tap()
     }
