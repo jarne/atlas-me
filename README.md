@@ -11,8 +11,11 @@
     <a href="https://github.com/jarne/atlas-me">
         <img src="https://img.shields.io/badge/language-Swift-orange" alt="Written in Swift">
     </a>
+    <a href="https://apps.apple.com/us/app/atlas-me/id6791661504">
+        <img src="https://img.shields.io/badge/Download-App%20Store-black" alt="Download on the App Store">
+    </a>
     <a href="https://testflight.apple.com/join/exSQGw9j">
-        <img src="https://img.shields.io/badge/Download-TestFlight-blue" alt="Download on TestFlight">
+        <img src="https://img.shields.io/badge/Test-TestFlight-blue" alt="Test on TestFlight">
     </a>
     <a href="https://github.com/jarne/atlas-me/blob/main/LICENSE">
         <img src="https://img.shields.io/github/license/jarne/atlas-me.svg" alt="License">
@@ -49,6 +52,12 @@ and both fundamental design choices and a lot of UI design choices were made by 
 but everyone is more than welcome to contribute changes for their native language so the translations sound more natural.
 
 ## 🖥 Usage
+
+The latest release of Atlas & Me is available on the App Store:
+
+<a href="https://apps.apple.com/us/app/atlas-me/id6791661504">
+    <img src=".github/.media/app-store-badge.svg" width="120" height="40" alt="Download on the App Store">
+</a>
 
 An official beta release is available for download on [TestFlight](https://testflight.apple.com/join/exSQGw9j).
 The latest, unsigned build artifact of the app can be downloaded and installed from the releases page.
